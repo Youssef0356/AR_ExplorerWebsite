@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — AR Explorer</title>
+  <meta name="description" content="Privacy Policy for AR Explorer, developed by The 356 Company." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050c1a;
+      --bg2: #080f20;
+      --cyan: #00e5ff;
+      --purple: #a855f7;
+      --text: #e8eaf0;
+      --muted: #6b7a99;
+      --card-bg: rgba(255,255,255,0.03);
+      --card-border: rgba(255,255,255,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.8;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025; pointer-events: none;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(5,12,26,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; text-decoration: none;
+    }
+    .nav-back {
+      color: var(--muted); text-decoration: none; font-size: .85rem;
+      display: flex; align-items: center; gap: 6px; transition: color .2s;
+    }
+    .nav-back:hover { color: var(--cyan); }
+
+    main {
+      position: relative; z-index: 1;
+      max-width: 760px; margin: 0 auto;
+      padding: 5rem 2rem 8rem;
+    }
+
+    .policy-eyebrow {
+      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--cyan); font-weight: 600; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .policy-eyebrow::before { content:''; display:block; width:24px; height:1px; background:var(--cyan); }
+
+    h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1;
+      letter-spacing: -.03em; margin-bottom: 1rem;
+    }
+    h1 em { font-style: normal; color: var(--cyan); }
+
+    .meta {
+      color: var(--muted); font-size: .85rem; margin-bottom: 3rem;
+      padding-bottom: 2rem; border-bottom: 1px solid var(--card-border);
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .meta span { display: flex; align-items: center; gap: 6px; }
+
+    .toc {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 3rem;
+    }
+    .toc-title {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem;
+      letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .toc ol { padding-left: 1.2rem; }
+    .toc li { margin-bottom: .4rem; }
+    .toc a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+    .toc a:hover { color: var(--cyan); }
+
+    .policy-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+    h2 {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.3rem; letter-spacing: -.01em;
+      margin-bottom: 1rem; padding-bottom: .75rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 4px;
+      background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.2);
+      font-size: .75rem; font-weight: 700; color: var(--cyan);
+      font-family: 'Syne', sans-serif; flex-shrink: 0;
+    }
+    p { color: rgba(232,234,240,0.8); font-weight: 300; margin-bottom: 1rem; font-size: .95rem; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    li { color: rgba(232,234,240,0.8); font-weight: 300; font-size: .95rem; margin-bottom: .4rem; }
+    strong { font-weight: 600; color: var(--text); }
+
+    .highlight-box {
+      background: rgba(0,229,255,0.04);
+      border: 1px solid rgba(0,229,255,0.15);
+      border-radius: 6px; padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .highlight-box p { margin: 0; }
+    .highlight-box strong { color: var(--cyan); }
+
+    .no-data-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25);
+      border-radius: 4px; padding: .5rem 1rem;
+      font-size: .85rem; color: #34d399; font-weight: 500;
+      margin: 1rem 0;
+    }
+    .no-data-badge::before { content: '✓'; font-weight: 700; }
+
+    .contact-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 8px; padding: 1.5rem 2rem; margin-top: 1.5rem;
+    }
+    .contact-card p { margin: .3rem 0; }
+    .contact-card a { color: var(--cyan); text-decoration: none; transition: opacity .2s; }
+    .contact-card a:hover { opacity: .7; }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      text-align: center; padding: 2rem;
+      color: var(--muted); font-size: .8rem;
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--cyan); }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.5rem; }
+      main { padding: 3rem 1.25rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⬡ AR Explorer</a>
+  <a href="index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<main>
+  <div class="policy-eyebrow">Legal</div>
+  <h1>Privacy <em>Policy</em></h1>
+  <div class="meta">
+    <span>📅 Effective date: January 1, 2025</span>
+    <span>🏢 The 356 Company</span>
+    <span>📱 AR Explorer — Android App</span>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#data-collected">Data We Collect</a></li>
+      <li><a href="#data-storage">How Data Is Stored</a></li>
+      <li><a href="#third-parties">Third-Party Services</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- 1. OVERVIEW -->
+  <div class="policy-section" id="overview">
+    <h2><span class="num">1</span> Overview</h2>
+    <p>
+      AR Explorer is an educational mobile application developed by <strong>The 356 Company</strong>, 
+      designed to help developers and engineers master Augmented Reality concepts for interviews 
+      and professional development.
+    </p>
+    <p>
+      This Privacy Policy explains what information AR Explorer handles, how it is stored, 
+      and what rights you have regarding your data. We believe in radical transparency — 
+      and in this case, there is very little to explain.
+    </p>
+    <div class="highlight-box">
+      <p><strong>The short version:</strong> AR Explorer does not collect, transmit, or share any personal data. Everything stays on your device. We have no servers, no accounts, and no analytics.</p>
+    </div>
+  </div>
+
+  <!-- 2. DATA COLLECTED -->
+  <div class="policy-section" id="data-collected">
+    <h2><span class="num">2</span> Data We Collect</h2>
+    <div class="no-data-badge">We do not collect personal data</div>
+    <p>
+      AR Explorer does <strong>not</strong> collect, transmit, or store any of the following:
+    </p>
+    <ul>
+      <li>Personal identification information (name, email, phone number)</li>
+      <li>Location data (GPS or network-based)</li>
+      <li>Device identifiers (IMEI, advertising ID, etc.)</li>
+      <li>Camera or microphone data</li>
+      <li>Contacts or calendar information</li>
+      <li>Usage analytics or behavioral data</li>
+      <li>Crash reports sent to third-party servers</li>
+      <li>Financial or payment information</li>
+    </ul>
+    <p>
+      The app does not require an account, login, or registration of any kind. 
+      You can use AR Explorer anonymously and indefinitely without providing any personal information.
+    </p>
+  </div>
+
+  <!-- 3. DATA STORAGE -->
+  <div class="policy-section" id="data-storage">
+    <h2><span class="num">3</span> How Data Is Stored</h2>
+    <p>
+      AR Explorer stores a limited amount of app state <strong>locally on your device</strong> 
+      to provide a seamless experience. This includes:
+    </p>
+    <ul>
+      <li><strong>Learning progress</strong> — which modules and topics you have completed</li>
+      <li><strong>Quiz results</strong> — your scores and answers for completed quizzes</li>
+      <li><strong>App preferences</strong> — any settings you configure within the app</li>
+    </ul>
+    <p>
+      This data is stored using Android's standard local storage mechanisms 
+      (SharedPreferences and local database). It <strong>never leaves your device</strong> 
+      and is not accessible to us, to any third party, or to any external server.
+    </p>
+    <div class="highlight-box">
+      <p>
+        <strong>Offline first:</strong> AR Explorer is designed for complete offline use. 
+        No internet connection is required to access any content, track your progress, 
+        or complete quizzes. Your data is yours — always.
+      </p>
+    </div>
+    <p>
+      If you uninstall AR Explorer, all locally stored app data will be permanently deleted 
+      from your device as per Android's standard application lifecycle.
+    </p>
+  </div>
+
+  <!-- 4. THIRD PARTIES -->
+  <div class="policy-section" id="third-parties">
+    <h2><span class="num">4</span> Third-Party Services</h2>
+    <p>
+      AR Explorer does <strong>not</strong> integrate with any third-party analytics, 
+      advertising, crash reporting, or data collection services. The app does not include:
+    </p>
+    <ul>
+      <li>Google Analytics or Firebase Analytics</li>
+      <li>Facebook SDK or any Meta services</li>
+      <li>AdMob or any advertising networks</li>
+      <li>Crashlytics, Sentry, or any crash reporting tools</li>
+      <li>Any social login providers (Google Sign-In, etc.)</li>
+    </ul>
+    <p>
+      The application is distributed through the <strong>Google Play Store</strong>. 
+      Google may collect aggregated, anonymized installation and usage statistics 
+      as part of the Play Store platform. This data is governed by 
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;">Google's Privacy Policy</a> 
+      and is not accessible to or controlled by The 356 Company.
+    </p>
+  </div>
+
+  <!-- 5. CHILDREN -->
+  <div class="policy-section" id="children">
+    <h2><span class="num">5</span> Children's Privacy</h2>
+    <p>
+      AR Explorer is designed as an educational tool for developers and technology professionals. 
+      It is not directed at children under the age of 13.
+    </p>
+    <p>
+      Since the app collects no personal data from any user, it does not knowingly collect 
+      personal information from children. If you believe that a child under 13 has provided 
+      personal information through our app, please contact us at the address below — 
+      though as stated throughout this policy, no such data is collected.
+    </p>
+  </div>
+
+  <!-- 6. CHANGES -->
+  <div class="policy-section" id="changes">
+    <h2><span class="num">6</span> Changes to This Policy</h2>
+    <p>
+      We may update this Privacy Policy from time to time. Any changes will be reflected 
+      on this page with an updated effective date. We encourage you to review this page 
+      periodically for any changes.
+    </p>
+    <p>
+      Continued use of AR Explorer after any changes constitutes your acceptance of the 
+      updated Privacy Policy. If we ever introduce any form of data collection in a future 
+      version, we will clearly notify users in advance and update this policy accordingly.
+    </p>
+  </div>
+
+  <!-- 7. CONTACT -->
+  <div class="policy-section" id="contact">
+    <h2><span class="num">7</span> Contact Us</h2>
+    <p>
+      If you have any questions about this Privacy Policy, your data, or how AR Explorer 
+      works, please reach out:
+    </p>
+    <div class="contact-card">
+      <p><strong>Developer:</strong> The 356 Company</p>
+      <p><strong>App:</strong> AR Explorer</p>
+      <p><strong>Email:</strong> <a href="mailto:nejiyoussef081@gmail.com">nejiyoussef081@gmail.com</a></p>
+    </div>
+    <p style="margin-top: 1.5rem; font-size: .85rem; color: var(--muted);">
+      We aim to respond to all inquiries within 5 business days.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 The 356 Company · AR Explorer &nbsp;·&nbsp; <a href="index.html">Back to home</a></p>
+</footer>
+
+</body>
+</html>
