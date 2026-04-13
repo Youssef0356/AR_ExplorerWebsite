@@ -116,6 +116,19 @@
     }
 
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-logo span {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 1.1rem;
@@ -124,7 +137,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-decoration: none;
     }
 
     .nav-links {
@@ -383,11 +395,25 @@
       }
     }
 
-    /* ── SEQUENCE SECTION ── */
+    /* ── SEQUENCE SECTION RESTRUCTURED ── */
     #sequence-section {
       position: relative;
-      height: 600vh;
-      background: #000; /* Match sequence frames for perfect blending */
+      height: 700vh; /* Increased height for longer scroll experience */
+      background: var(--bg);
+    }
+
+    #sequence-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(0.95) saturate(1.1) brightness(0.7) blur(2px);
+      image-rendering: high-quality;
+      mix-blend-mode: screen;
+      z-index: 1;
+      opacity: 0.35; /* Subtle 3D background */
+      pointer-events: none;
     }
 
     .sequence-sticky {
@@ -400,30 +426,37 @@
       overflow: hidden;
     }
 
-    #sequence-canvas {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50vw;
-      height: 50vh;
-      object-fit: cover;
-      /* Soften the pixels and enhance colors */
-      filter: contrast(0.95) saturate(1.1) brightness(1.05) blur(0.4px);
-      image-rendering: high-quality;
-      z-index: 1;
+    .sequence-split-layout {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+    }
+
+    .sequence-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 2rem;
+    }
+
+    .sequence-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     .sequence-overlay {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50vw;
-      height: 50vh;
-      /* Cinematic vignette and color wash */
-      background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.4) 100%),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 20%, transparent 80%, rgba(0, 0, 0, 0.3) 100%);
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(5, 12, 26, 0.4) 100%);
       pointer-events: none;
       z-index: 2;
     }
@@ -431,17 +464,13 @@
     /* ── ANIMATED PURPLE OVERLAY ── */
     .sequence-purple-glow {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50vw;
-      height: 50vh;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, transparent 50%, rgba(168, 85, 247, 0.08) 100%);
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.1), transparent 70%);
       mix-blend-mode: screen;
       pointer-events: none;
       z-index: 3;
       animation: purplePulse 10s ease infinite alternate;
-      opacity: 0.5;
+      opacity: 0.4;
     }
 
     @keyframes purplePulse {
@@ -470,28 +499,28 @@
     }
 
     .sequence-text-container {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      height: 200px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       pointer-events: none;
-      z-index: 10; /* Bring text to the front */
     }
 
     .seq-text {
+      position: absolute;
+      top: 0;
+      left: 0;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: clamp(2rem, 5vw, 4rem);
-      text-align: center;
-      max-width: 700px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      text-align: left;
       line-height: 1.1;
-      letter-spacing: -.01em;
+      letter-spacing: -.02em;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .5s ease, transform .5s ease;
+      transform: translateY(20px);
+      transition: opacity .6s cubic-bezier(0.2, 0.8, 0.2, 1), transform .6s cubic-bezier(0.2, 0.8, 0.2, 1);
       text-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
-      padding: 0 2rem;
     }
 
     .seq-text.visible {
@@ -1132,9 +1161,20 @@
     }
 
     .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: .95rem;
+    }
+
+    .footer-logo img {
+      height: 24px;
+      width: auto;
+    }
+
+    .footer-logo span {
       background: linear-gradient(135deg, var(--cyan), var(--purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -1234,6 +1274,23 @@
         padding: 0 1.5rem;
       }
 
+      .sequence-split-layout {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem;
+      }
+
+      .sequence-left {
+        display: none; /* Focus purely on the phone for mobile */
+      }
+
+      .sequence-right {
+        width: 100%;
+      }
+
+      .gallery-phone {
+        transform: scale(0.8) !important;
+      }
+
       .features-grid {
         grid-template-columns: 1fr;
       }
@@ -1280,7 +1337,10 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">⬡ AR Explorer</a>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/app_logo.png" alt="AR Explorer Logo">
+      <span>AR Explorer</span>
+    </a>
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#screenshots">App</a>
@@ -1325,51 +1385,46 @@
     </div>
   </section>
 
-  <!-- IMAGE SEQUENCE SECTION -->
   <div id="sequence-section">
     <div class="sequence-sticky">
       <canvas id="sequence-canvas"></canvas>
       <div class="sequence-overlay"></div>
       <div class="sequence-purple-glow"></div>
-      <div class="sequence-text-container">
-        <div class="seq-text" id="seq-text-0">Step into the<br /><em>future of AR</em></div>
-        <div class="seq-text" id="seq-text-1">Learn the <em>algorithms</em><br />behind spatial tracking</div>
-        <div class="seq-text" id="seq-text-2">Understand <em>OpenXR</em>,<br />the unified XR standard</div>
-        <div class="seq-text" id="seq-text-3">Master <em>every concept</em><br />before your interview</div>
-      </div>
-      <div class="frame-counter" id="frame-counter">00 / 60</div>
-    </div>
-  </div>
-
-  <!-- SCREENSHOTS OVERHAUL -->
-  <section id="screenshots">
-    <div class="container">
-      <div class="screenshots-intro reveal">
-        <div class="section-label">Real Experience</div>
-        <h2 class="section-title">Step inside the<br /><em>AR Workspace</em></h2>
-        <p>A beautifully gamified, dark-mode focused environment. Designed to keep you immersed while mastering spatial
-          computing concepts and interactive code challenges.</p>
-      </div>
-
-      <div class="gallery-container reveal">
-        <div class="gallery-tabs">
-          <button class="gallery-tab active" data-cat="all">All Features</button>
-          <button class="gallery-tab" data-cat="roadmap">Roadmap & Interview</button>
-          <button class="gallery-tab" data-cat="games">Modules & Games</button>
-          <button class="gallery-tab" data-cat="analytics">Analytics</button>
+      
+      <div class="sequence-split-layout">
+        <!-- Left: Contextual Text -->
+        <div class="sequence-left">
+          <div class="screenshots-intro" style="margin-bottom: 3rem;">
+            <div class="section-label">Real Experience</div>
+            <h2 class="section-title">Step inside the<br /><em>AR Workspace</em></h2>
+            <p style="max-width: 500px;">A beautifully gamified, dark-mode focused environment. Designed to keep you immersed while mastering spatial
+              computing concepts and interactive code challenges.</p>
+          </div>
+          
+          <div class="sequence-text-container">
+            <div class="seq-text" id="seq-text-0">Experience the<br /><em>future of AR</em></div>
+            <div class="seq-text" id="seq-text-1">Learn the <em>algorithms</em><br />behind spatial tracking</div>
+            <div class="seq-text" id="seq-text-2">Understand <em>OpenXR</em>,<br />the unified XR standard</div>
+            <div class="seq-text" id="seq-text-3">Master <em>every concept</em><br />before your interview</div>
+          </div>
         </div>
 
-        <div class="gallery-stage">
-          <div class="gallery-phone">
+        <!-- Right: The Gallery Phone (Auto-Looping) -->
+        <div class="sequence-right">
+          <div class="gallery-phone" style="transform: scale(1.1); margin-right: -2rem;">
             <div class="gallery-notch"></div>
             <div class="gallery-screen" id="gallery-screen">
-              <!-- Images will be injected here via Javascript -->
+              <!-- Screenshots will cycle here -->
             </div>
           </div>
         </div>
       </div>
+      
+      <div class="frame-counter" id="frame-counter">001 / 367</div>
     </div>
-  </section>
+  </div>
+
+
 
   <!-- FEATURES -->
   <section id="features">
@@ -1499,7 +1554,10 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-logo">⬡ AR Explorer</div>
+        <div class="footer-logo">
+          <img src="assets/images/app_logo.png" alt="AR Explorer Logo">
+          <span>AR Explorer</span>
+        </div>
         <div class="footer-copy">© 2026 The 356 Company. All rights reserved.</div>
         <div class="footer-links">
           <a href="privacy.html">Privacy Policy</a>
@@ -1528,95 +1586,46 @@
     }
 
 
-    // ── SCREENSHOT GALLERY LOGIC ──
+
+
+    // ── SCREENSHOT GALLERY LOGIC (AUTO-LOOPING) ──
     const screenshotsList = [
-      // Roadmap & Interview mapped first!
-      { src: 'Screenshot_2026-04-12-21-35-53-333_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Roadmap (02)
-      { src: 'Screenshot_2026-04-12-21-36-10-172_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (05)
-      { src: 'Screenshot_2026-04-12-21-36-13-192_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (06)
-      { src: 'Screenshot_2026-04-12-21-36-18-388_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (07)
-      { src: 'Screenshot_2026-04-12-21-36-25-375_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (08)
-
-      // Games & Modules
-      { src: 'Screenshot_2026-04-12-21-35-57-227_com.the356company.arexplorer.jpg', cat: 'games' }, // Systems Eng (03)
-      { src: 'Screenshot_2026-04-12-21-36-59-275_com.the356company.arexplorer.jpg', cat: 'games' }, // Bug Debugger (12)
-      { src: 'Screenshot_2026-04-12-21-37-07-402_com.the356company.arexplorer.jpg', cat: 'games' }, // Pipeline (13)
-      { src: 'Screenshot_2026-04-12-21-37-19-999_com.the356company.arexplorer.jpg', cat: 'games' }, // XR Builder (14)
-      { src: 'Screenshot_2026-04-12-21-37-28-886_com.the356company.arexplorer.jpg', cat: 'games' }, // Scene Details (15)
-      { src: 'Screenshot_2026-04-12-21-37-32-628_com.the356company.arexplorer.jpg', cat: 'games' }, // Code Game (16)
-
-      // Analytics & Dashboard & Rewards
-      { src: 'Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Dashboard (01)
-      { src: 'Screenshot_2026-04-12-21-36-04-678_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Stats (04)
-      { src: 'Screenshot_2026-04-12-21-36-34-529_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Analytics Graph (09)
-      { src: 'Screenshot_2026-04-12-21-36-37-186_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Certificate (10)
-      { src: 'Screenshot_2026-04-12-21-36-45-986_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Modules Grid (11)
-      { src: 'Screenshot_2026-04-12-21-37-39-549_com.the356company.arexplorer.jpg', cat: 'analytics' }  // Setting/Summary (17)
+      { src: 'Screenshot_2026-04-12-21-35-53-333_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-10-172_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-13-192_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-18-388_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-25-375_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-35-57-227_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-59-275_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-37-07-402_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-37-19-999_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-37-28-886_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-37-32-628_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-04-678_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-34-529_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-37-186_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-36-45-986_com.the356company.arexplorer.jpg' },
+      { src: 'Screenshot_2026-04-12-21-37-39-549_com.the356company.arexplorer.jpg' }
     ];
 
     const screenContainer = document.getElementById('gallery-screen');
-    const tabs = document.querySelectorAll('.gallery-tab');
-    let currentIndex = 0;
-    let filteredScreenshots = screenshotsList;
-    let intervalId = null;
-
-    // Preload and create img elements
     const imgElements = screenshotsList.map((item, idx) => {
       const img = document.createElement('img');
       img.src = `assets/images/screenshots/${item.src}`;
-      img.dataset.cat = item.cat;
       img.dataset.index = idx;
       screenContainer.appendChild(img);
       return img;
     });
 
-    function showScreenshot(index) {
-      imgElements.forEach(img => img.classList.remove('active'));
-      if (filteredScreenshots.length > 0) {
-        const targetObj = filteredScreenshots[index];
-        const actualImg = imgElements.find(img => img.src.includes(targetObj.src));
-        if (actualImg) actualImg.classList.add('active');
-      }
+    let galleryIndex = 0;
+    function cycleGallery() {
+      imgElements.forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
+      galleryIndex = (galleryIndex + 1) % imgElements.length;
     }
-
-    function nextScreenshot() {
-      if (filteredScreenshots.length === 0) return;
-      currentIndex = (currentIndex + 1) % filteredScreenshots.length;
-      showScreenshot(currentIndex);
-    }
-
-    function startAutoCycle() {
-      stopAutoCycle();
-      intervalId = setInterval(nextScreenshot, 3000);
-    }
-    function stopAutoCycle() {
-      if (intervalId) clearInterval(intervalId);
-    }
-
-    // Interactivity for tabs
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const cat = tab.dataset.cat;
-        if (cat === 'all') {
-          filteredScreenshots = screenshotsList;
-        } else {
-          filteredScreenshots = screenshotsList.filter(s => s.cat === cat);
-        }
-
-        currentIndex = 0; // Reset index when switching categories
-        showScreenshot(currentIndex);
-        startAutoCycle(); // Restart cycle with new category
-      });
-    });
-
-    // Initialize
-    showScreenshot(0);
-    startAutoCycle();
-
-    // ── SCROLL REVEAL ──
+    // Start the "video loop" for screenshots
+    setInterval(cycleGallery, 2800);
+    cycleGallery();
     const reveals = document.querySelectorAll('.reveal');
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
@@ -1630,19 +1639,13 @@
     const frameCounter = document.getElementById('frame-counter');
     const TOTAL_FRAMES = 367;
 
-    // Resize canvas for HD/Retina displays
+    // Resize canvas for full-screen backdrop
     function resizeCanvas() {
       const dpr = window.devicePixelRatio || 1;
-      const targetW = window.innerWidth * 0.5;
-      const targetH = window.innerHeight * 0.5;
-      
-      canvas.width = targetW * dpr;
-      canvas.height = targetH * dpr;
-      canvas.style.width = targetW + 'px';
-      canvas.style.height = targetH + 'px';
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
  
       // Enable high-quality smoothing
-      ctx.scale(dpr, dpr);
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
     }
@@ -1721,8 +1724,7 @@
     }
 
     function updateSequence() {
-      // Use "Lerp" (Linear Interpolation) for buttery smoothness
-      // 0.1 is the 'softness' factor. Lower = smoother/slower.
+      // 3D Background - Follow Scroll
       lerpedFrame += (targetFrame - lerpedFrame) * 0.1;
       const frameIndex = Math.round(lerpedFrame);
 
@@ -1730,17 +1732,18 @@
         currentFrame = frameIndex;
         if (framesReady) drawFrame(frameIndex);
         frameCounter.textContent = `${String(frameIndex + 1).padStart(3, '0')} / ${TOTAL_FRAMES}`;
-
-        // Show/hide text overlays
-        textTriggers.forEach(t => {
-          const el = document.getElementById(t.id);
-          if (frameIndex >= t.start && frameIndex <= t.end) {
-            el.classList.add('visible');
-          } else {
-            el.classList.remove('visible');
-          }
-        });
       }
+
+      // Contextual Text Triggers - Follow Scroll
+      textTriggers.forEach(t => {
+        const el = document.getElementById(t.id);
+        if (frameIndex >= t.start && frameIndex <= t.end) {
+          el.classList.add('visible');
+        } else {
+          el.classList.remove('visible');
+        }
+      });
+
       requestAnimationFrame(updateSequence);
     }
     updateSequence();
