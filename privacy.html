@@ -39,10 +39,21 @@
       border-bottom: 1px solid var(--card-border);
     }
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+    .nav-logo span {
       font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
       background: linear-gradient(135deg, var(--cyan), var(--purple));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; text-decoration: none;
+      background-clip: text;
     }
     .nav-back {
       color: var(--muted); text-decoration: none; font-size: .85rem;
@@ -155,7 +166,10 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">⬡ AR Explorer</a>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/images/app_logo.png" alt="AR Explorer Logo">
+    <span>AR Explorer</span>
+  </a>
   <a href="index.html" class="nav-back">← Back to home</a>
 </nav>
 
