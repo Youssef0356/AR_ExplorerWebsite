@@ -4,50 +4,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR Explorer — Master Augmented Reality</title>
+  <title>AR Explorer — Master Augmented Reality & Spatial Computing</title>
   <meta name="description"
-    content="AR Explorer is your interview-ready companion for mastering Augmented Reality. Learn SLAM, OpenXR, AR Cloud, and more — fully offline." />
-  <meta name="theme-color" content="#050c1a" />
+    content="The interactive mobile learning platform for Augmented Reality developers. Master SLAM, OpenXR, ARCore, and ARKit with gamified labs, code challenges, interview prep, and industry certifications." />
+  <meta name="keywords" content="Augmented Reality, AR, XR, SLAM, OpenXR, ARKit, ARCore, Spatial Computing, AR Explorer, Mobile App" />
+  <meta name="theme-color" content="#0A0E21" />
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AR Explorer — Master Augmented Reality & Spatial Computing" />
+  <meta property="og:description"
+    content="The interactive mobile learning platform for XR developers. Master SLAM, OpenXR, and spatial math with hands-on labs, interview prep, and certifications." />
+  <meta property="og:image" content="assets/images/StoryToPost.png" />
+  <link rel="icon" type="image/png" href="assets/images/app_logo.png" />
+
+  <!-- Fonts: Outfit (Headings) + Inter (Body) matching the Flutter App Theme -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
     rel="stylesheet" />
+
   <style>
-    /* Effra font — loaded locally if available, otherwise Outfit is used as a near-identical fallback */
-    @font-face {
-      font-family: 'Effra';
-      src: local('Effra'), local('Effra-Regular');
-      font-weight: 400;
-    }
-    @font-face {
-      font-family: 'Effra';
-      src: local('Effra Bold'), local('Effra-Bold');
-      font-weight: 700 800 900;
-    }
-
+    /* ── DESIGN TOKENS (Directly synchronized with Flutter app_theme.dart) ── */
     :root {
-      --bg: #03080f;
-      --bg2: #060d1c;
-      --cyan: #00e5ff;
-      --cyan2: #00b8d9;
-      --purple: #a855f7;
-      --purple2: #7c3aed;
-      --pink: #ff3cac;
-      --gold: #f4c542;
-      --green: #00ff88;
-      --text: #e8eaf0;
-      --muted: #5a6a88;
-      --card-bg: rgba(255, 255, 255, 0.025);
-      --card-border: rgba(255, 255, 255, 0.07);
-      --glow-cyan: 0 0 60px rgba(0, 229, 255, 0.2);
-      --glow-purple: 0 0 60px rgba(168, 85, 247, 0.2);
-      --hud-line: rgba(0, 229, 255, 0.12);
+      --bg-primary: #0A0E21;
+      --bg-secondary: #0F172A;
+      --bg-surface: #141D36;
+      --bg-card: #1A2744;
+      --bg-card-alt: #10192E;
+      --bg-glass: rgba(26, 39, 68, 0.65);
+
+      /* Primary App Accents */
+      --accent-cyan: #00D4AA;    /* Primary Teal/Mint */
+      --accent-blue: #4FC3F7;    /* Secondary Light Blue */
+      --accent-purple: #BB86FC;  /* Lavender / Purple */
+      --accent-amber: #FFCA28;   /* Amber / Gold */
+      --accent-pink: #FF6B9D;    /* Vibrant Pink */
+      --accent-orange: #FF8A65;  /* Coral / Orange */
+
+      /* Typography & Neutral Colors */
+      --text-primary: #ECEFF1;
+      --text-secondary: #B0BEC5;
+      --text-muted: #78909C;
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --border-glass-hover: rgba(0, 212, 170, 0.35);
+      --border-card: rgba(79, 195, 247, 0.12);
+
+      /* Glow & Elevation */
+      --glow-cyan: 0 0 32px rgba(0, 212, 170, 0.22);
+      --glow-blue: 0 0 32px rgba(79, 195, 247, 0.22);
+      --glow-purple: 0 0 32px rgba(187, 134, 252, 0.22);
+      --shadow-elevation: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+      
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-xl: 32px;
     }
 
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -55,1396 +75,1499 @@
 
     html {
       scroll-behavior: smooth;
+      color-scheme: dark;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── SCANLINES OVERLAY ── */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,229,255,0.012) 2px,
-        rgba(0,229,255,0.012) 4px
-      );
-      pointer-events: none;
-      animation: scanMove 12s linear infinite;
-    }
-    @keyframes scanMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 200px; }
+    /* Selection */
+    ::selection {
+      background: rgba(0, 212, 170, 0.25);
+      color: #fff;
     }
 
-    /* ── SCAN BEAM ── */
-    .scan-beam {
-      position: fixed;
-      top: -4px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(0,229,255,0.6), transparent);
-      box-shadow: 0 0 30px 6px rgba(0,229,255,0.2);
-      z-index: 3;
-      animation: scanBeam 8s ease-in-out infinite;
-      pointer-events: none;
-    }
-    @keyframes scanBeam {
-      0%   { top: -4px; opacity: 0; }
-      5%   { opacity: 1; }
-      95%  { opacity: 0.6; }
-      100% { top: 100vh; opacity: 0; }
+    /* Container Utility */
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
 
-    /* ── AMBIENT ORBS ── */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-      animation: orbDrift var(--dur, 20s) ease-in-out infinite alternate;
-    }
-    .orb-1 { width: 500px; height: 500px; background: rgba(168,85,247,0.06); top: -150px; right: -100px; --dur: 18s; }
-    .orb-2 { width: 400px; height: 400px; background: rgba(0,229,255,0.05); bottom: 10%; left: -120px; --dur: 24s; }
-    .orb-3 { width: 300px; height: 300px; background: rgba(255,60,172,0.04); top: 50%; right: 10%; --dur: 30s; }
-    @keyframes orbDrift {
-      0%   { transform: translate(0,0) scale(1); }
-      100% { transform: translate(40px,60px) scale(1.15); }
-    }
-
-    /* ── CUSTOM CURSOR ── */
-    .cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 9999;
-      pointer-events: none;
-      mix-blend-mode: exclusion;
-    }
-
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: #fff;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: transform .1s;
-    }
-
-    .cursor-ring {
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      transition: transform .18s ease, width .2s, height .2s, border-color .2s;
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    body:has(a:hover) .cursor-ring,
-    body:has(button:hover) .cursor-ring {
-      width: 56px;
-      height: 56px;
-      border-color: var(--cyan);
-    }
-
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.025;
-      pointer-events: none;
-    }
-
-    /* ── NAV ── */
-    nav {
+    /* ── NAVIGATION ── */
+    nav.navbar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 100;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.navbar.scrolled {
+      background: rgba(10, 14, 33, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: var(--border-glass);
+      padding: 0.75rem 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 4rem;
-      background: rgba(3, 8, 15, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--hud-line);
-      box-shadow: 0 1px 0 rgba(0,229,255,0.06), 0 4px 30px rgba(0,0,0,0.4);
     }
 
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: .06em;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-decoration: none;
-      text-shadow: 0 0 30px rgba(0,229,255,0.4);
-    }
-
-    .nav-links {
+    .nav-brand {
       display: flex;
-      gap: 2rem;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
     }
 
-    .nav-links a {
-      color: var(--muted);
+    .nav-brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 212, 170, 0.2);
+    }
+
+    .brand-text {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
       text-decoration: none;
-      font-size: .875rem;
-      letter-spacing: .05em;
-      transition: color .2s, text-shadow .2s;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
       position: relative;
     }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--cyan);
-      transform: scaleX(0);
-      transition: transform .2s;
+    .nav-link:hover {
+      color: #fff;
     }
 
-    .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 20px rgba(0,229,255,0.5); }
-    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-    .nav-cta {
+    .btn-nav-download {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple2));
-      color: #fff;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #0A0E21;
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
       font-weight: 700;
-      font-size: .78rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: .6rem 1.5rem;
-      border-radius: 4px;
+      padding: 0.6rem 1.25rem;
+      border-radius: 99px;
       text-decoration: none;
-      transition: box-shadow .2s, transform .15s;
-      box-shadow: 0 0 20px rgba(0,229,255,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0, 212, 170, 0.3);
     }
 
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 40px rgba(0,229,255,0.5), 0 8px 24px rgba(0,0,0,0.4);
+    .btn-nav-download:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(0, 212, 170, 0.45);
     }
 
-    /* ── HERO ── */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* ── HERO SECTION ── */
     #hero {
       position: relative;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
+      padding: 8rem 0 5rem;
       overflow: hidden;
     }
 
-    .hero-grid-bg {
+    /* Dynamic Space / Grid Backdrop */
+    .hero-spatial-bg {
       position: absolute;
       inset: 0;
+      pointer-events: none;
       z-index: 0;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(0, 212, 170, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 80% 35%, rgba(79, 195, 247, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(187, 134, 252, 0.08) 0%, transparent 50%);
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
       background-image:
-        linear-gradient(rgba(0,229,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,229,255,0.05) 1px, transparent 1px);
-      background-size: 50px 50px;
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-      animation: gridPulse 8s ease-in-out infinite alternate;
-    }
-    @keyframes gridPulse {
-      0%   { opacity: 0.6; }
-      100% { opacity: 1.0; }
-    }
-
-    .hero-glow {
-      position: absolute;
-      top: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 500px;
-      background: radial-gradient(ellipse, rgba(168,85,247,0.18) 0%, rgba(0,229,255,0.1) 35%, transparent 70%);
-      filter: blur(60px);
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 80%);
       z-index: 0;
       pointer-events: none;
-      animation: glowPulse 6s ease-in-out infinite alternate;
-    }
-    @keyframes glowPulse {
-      0%   { opacity: 0.7; transform: translateX(-50%) scale(1); }
-      100% { opacity: 1.0; transform: translateX(-50%) scale(1.1); }
     }
 
-    /* AR ring decoration */
-    .hero-ring {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-      width: 520px;
-      height: 520px;
-      border-radius: 50%;
-      border: 1px solid rgba(0,229,255,0.08);
-      box-shadow: 0 0 60px rgba(0,229,255,0.04) inset;
-      z-index: 0;
-      pointer-events: none;
-      animation: ringRotate 40s linear infinite;
-    }
-    .hero-ring::before {
-      content: '';
-      position: absolute;
-      top: -3px; left: 40%;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 12px var(--cyan);
-    }
-    .hero-ring-2 {
-      width: 700px; height: 700px;
-      border-color: rgba(168,85,247,0.05);
-      animation: ringRotate 60s linear infinite reverse;
-    }
-    .hero-ring-2::before {
-      background: var(--purple);
-      box-shadow: 0 0 12px var(--purple);
-      left: 60%;
-    }
-    @keyframes ringRotate {
-      from { transform: translate(-50%,-50%) rotate(0deg); }
-      to   { transform: translate(-50%,-50%) rotate(360deg); }
-    }
-
-    /* HUD corner brackets */
-    .hud-corner {
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .hud-corner::before, .hud-corner::after {
-      content: '';
-      position: absolute;
-      background: var(--cyan);
-      opacity: 0.5;
-    }
-    .hud-corner::before { width: 100%; height: 2px; top: 0; left: 0; }
-    .hud-corner::after  { width: 2px; height: 100%; top: 0; left: 0; }
-    .hud-tl { top: 2rem; left: 2rem; }
-    .hud-tr { top: 2rem; right: 2rem; transform: scaleX(-1); }
-    .hud-bl { bottom: 5rem; left: 2rem; transform: scaleY(-1); }
-    .hud-br { bottom: 5rem; right: 2rem; transform: scale(-1,-1); }
-
-    .hero-eyebrow {
+    .hero-container {
       position: relative;
       z-index: 2;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .pill-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid var(--card-border);
-      border-radius: 100px;
-      padding: .35rem 1rem;
-      font-size: .75rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      background: rgba(0, 229, 255, 0.05);
-      margin-bottom: 2rem;
-      animation: fadeUp .8s ease both;
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: rgba(0, 212, 170, 0.08);
+      border: 1px solid rgba(0, 212, 170, 0.25);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
     }
 
-    .hero-eyebrow span {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--cyan);
-      animation: pulse 2s ease infinite;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+      animation: pulseAnim 2s infinite ease-in-out;
     }
 
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1)
-      }
-
-      50% {
-        opacity: .4;
-        transform: scale(.8)
-      }
+    @keyframes pulseAnim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
     }
 
     .hero-title {
-      position: relative;
-      z-index: 2;
-      font-family: 'Effra', 'Outfit', 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
       font-weight: 800;
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      line-height: 1.0;
-      letter-spacing: -.01em;
-      color: #ffffff;
-      animation: fadeUp .9s .1s ease both;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      color: #FFFFFF;
     }
 
-    .hero-title em {
-      font-style: normal;
-      color: var(--cyan);
-      -webkit-text-fill-color: var(--cyan);
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #00D4AA 0%, #4FC3F7 50%, #BB86FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .hero-sub {
-      position: relative;
-      z-index: 2;
-      color: var(--muted);
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      max-width: 560px;
+    .hero-description {
+      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+      color: var(--text-secondary);
       line-height: 1.7;
-      margin: 1.5rem auto 2.5rem;
-      font-weight: 300;
-      animation: fadeUp 1s .2s ease both;
+      margin-bottom: 2.25rem;
+      font-weight: 400;
     }
 
-    .hero-ctas {
-      position: relative;
-      z-index: 2;
+    .hero-buttons {
       display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       gap: 1rem;
-      justify-content: center;
-      animation: fadeUp 1s .3s ease both;
+      margin-bottom: 2.5rem;
     }
 
-    .btn-primary {
+    .btn-cta-main {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #000;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+      color: #0A0E21;
+      font-family: var(--font-heading);
       font-weight: 700;
-      font-size: .85rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: .9rem 2.2rem;
-      border-radius: 4px;
+      font-size: 1rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 14px;
       text-decoration: none;
-      position: relative;
-      overflow: hidden;
-      transition: transform .15s, box-shadow .2s;
-      box-shadow: 0 0 40px rgba(0,229,255,0.3);
+      box-shadow: 0 8px 24px rgba(0, 212, 170, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .btn-primary::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
-      transform: translateX(-100%);
-      transition: transform .5s ease;
-    }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 60px rgba(0,229,255,0.5), 0 12px 40px rgba(0,0,0,0.4); }
-    .btn-primary:hover::after { transform: translateX(100%); }
 
-    .btn-secondary {
+    .btn-cta-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 212, 170, 0.5);
+    }
+
+    .btn-cta-main svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .btn-cta-secondary {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid rgba(0,229,255,0.25);
-      color: var(--text);
-      font-size: .85rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: .9rem 2.2rem;
-      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.9rem 1.6rem;
+      border-radius: 14px;
       text-decoration: none;
-      transition: border-color .2s, background .2s, box-shadow .2s;
-      background: rgba(0,229,255,0.04);
-    }
-    .btn-secondary:hover {
-      border-color: var(--cyan);
-      background: rgba(0,229,255,0.08);
-      box-shadow: 0 0 30px rgba(0,229,255,0.15);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
     }
 
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
+    .btn-cta-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .hero-highlights {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      animation: fadeUp 1s .6s ease both;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-glass);
     }
 
-    .scroll-hint span {
-      font-size: .7rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--muted);
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
 
-    .scroll-line {
-      width: 1px;
-      height: 50px;
-      background: linear-gradient(to bottom, var(--cyan), transparent);
-      animation: scrollLine 2s ease infinite;
+    .highlight-icon {
+      color: var(--accent-cyan);
     }
 
-    @keyframes scrollLine {
-      0% {
-        opacity: 0;
-        transform: scaleY(0);
-        transform-origin: top
-      }
-
-      50% {
-        opacity: 1
-      }
-
-      100% {
-        opacity: 0;
-        transform: scaleY(1);
-        transform-origin: top
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(24px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    /* ── SEQUENCE SECTION ── */
-    #sequence-section {
+    /* ── HERO VISUAL / PHONE MOCKUP ── */
+    .hero-visual {
       position: relative;
-      height: 600vh;
-      background: #000; /* Match sequence frames for perfect blending */
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .sequence-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .phone-mockup-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 330px;
+    }
+
+    .mockup-ambient-glow {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(0, 212, 170, 0.3) 0%, rgba(79, 195, 247, 0.15) 50%, transparent 75%);
+      filter: blur(40px);
+      z-index: 0;
+      border-radius: 40px;
+    }
+
+    .phone-mockup {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 660px;
+      background: #0D1424;
+      border-radius: 42px;
+      border: 3.5px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 0 12px rgba(255, 255, 255, 0.05);
       overflow: hidden;
     }
 
-    #sequence-canvas {
+    .phone-notch-pill {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      filter: contrast(0.95) saturate(1.1) brightness(1.05);
-      image-rendering: high-quality;
-      z-index: 1;
-    }
-
-    .sequence-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(0,0,0,0.45) 100%),
-        linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.35) 100%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    /* ── ANIMATED PURPLE OVERLAY ── */
-    .sequence-purple-glow {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(168,85,247,0.1) 0%, transparent 50%, rgba(168,85,247,0.08) 100%);
-      mix-blend-mode: screen;
-      pointer-events: none;
-      z-index: 3;
-      animation: purplePulse 10s ease infinite alternate;
-      opacity: 0.5;
-    }
-
-    @keyframes purplePulse {
-      0% { opacity: 0.3; transform: scale(1); filter: hue-rotate(0deg); }
-      100% { opacity: 0.7; transform: scale(1.05); filter: hue-rotate(45deg); }
-    }
-
-    /* HD Noise Glue: Makes colors look high-bitrate and hides JPG artifacts */
-    .sequence-overlay::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
-      opacity: 0.04;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-    }
-
-    /* Shadow depth for HD contrast */
-    .sequence-sticky::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.4);
-      pointer-events: none;
-    }
-
-    .sequence-text-container {
-      position: absolute;
-      inset: 0;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 22px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
-      z-index: 10; /* Bring text to the front */
     }
 
-    .seq-text {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2rem, 5vw, 4rem);
-      text-align: center;
-      max-width: 700px;
-      line-height: 1.1;
-      letter-spacing: -.01em;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .5s ease, transform .5s ease;
-      text-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
-      padding: 0 2rem;
+    .notch-camera {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #111a2e;
+      border: 1px solid #233458;
     }
 
-    .seq-text.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .seq-text em {
-      font-style: normal;
-      color: var(--cyan);
-    }
-
-    .frame-counter {
-      position: absolute;
-      bottom: 2rem;
-      right: 2rem;
-      font-family: 'Syne', sans-serif;
-      font-size: .7rem;
-      letter-spacing: .15em;
-      color: rgba(255, 255, 255, 0.2);
-      font-weight: 600;
-    }
-
-    /* ── SECTION SHARED ── */
-    section {
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #0A0E21;
       position: relative;
-      z-index: 2;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 4rem;
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .section-label {
-      font-size: .7rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      font-weight: 600;
-      margin-bottom: 1rem;
+    /* Floating callout badges on hero phone */
+    .floating-callout {
+      position: absolute;
+      z-index: 3;
+      padding: 12px 16px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      animation: floatBadge 4s ease-in-out infinite alternate;
     }
 
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--cyan);
+    .floating-callout.badge-top {
+      top: 12%;
+      right: -25px;
+      animation-delay: 0s;
+    }
+
+    .floating-callout.badge-bottom {
+      bottom: 14%;
+      left: -25px;
+      animation-delay: 2s;
+    }
+
+    @keyframes floatBadge {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-10px); }
+    }
+
+    .callout-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .callout-title {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .callout-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── PILLARS / METRICS STRIP ── */
+    .metrics-section {
+      position: relative;
+      z-index: 2;
+      padding: 2.5rem 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-glass);
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .metric-card {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(135deg, #FFFFFF, var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .metric-value.highlight-cyan {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .metric-label {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ── SECTION HEADER COMMON ── */
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+      background: rgba(0, 212, 170, 0.08);
+      padding: 4px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(0, 212, 170, 0.2);
     }
 
     .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 800;
       line-height: 1.15;
-      letter-spacing: -.02em;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .section-title span.accent {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── CURRICULUM SECTION (9 MODULES) ── */
+    #curriculum {
+      padding: 6.5rem 0;
+      position: relative;
+    }
+
+    .curriculum-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .curriculum-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .curriculum-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--accent-cyan));
+      opacity: 0.8;
+      transition: height 0.2s;
+    }
+
+    .curriculum-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    }
+
+    .curriculum-card:hover::before {
+      height: 4px;
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 1rem;
     }
 
-    .section-title em {
-      font-style: normal;
-      color: var(--purple);
+    .module-badge {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--card-accent, var(--accent-cyan));
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ── FEATURES ── */
-    #features {
-      padding: 8rem 0;
+    .module-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--card-accent, var(--accent-cyan));
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .features-intro {
-      max-width: 600px;
-      margin-bottom: 5rem;
+    .module-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
     }
 
-    .features-intro p {
-      color: var(--muted);
-      line-height: 1.8;
-      margin-top: .75rem;
-      font-size: 1rem;
+    .module-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
     }
 
-    .features-grid {
+    .module-topics-list {
+      list-style: none;
+      border-top: 1px solid var(--border-glass);
+      padding-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .topic-item {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .topic-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--card-accent, var(--accent-cyan));
+    }
+
+    /* ── INTERACTIVE APP SCREEN GALLERY / TABBED SHOWCASE ── */
+    #experience {
+      padding: 6.5rem 0;
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-surface) 50%, var(--bg-primary) 100%);
+      position: relative;
+    }
+
+    .gallery-tabs-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .gallery-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.65rem 1.4rem;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gallery-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .gallery-tab-btn.active {
+      background: var(--accent-cyan);
+      color: #0A0E21;
+      font-weight: 700;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 4px 20px rgba(0, 212, 170, 0.4);
+    }
+
+    .gallery-showcase-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      align-items: center;
+      gap: 3.5rem;
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .showcase-phone-stage {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .showcase-phone-frame {
+      width: 100%;
+      max-width: 310px;
+      height: 620px;
+      background: #090e1a;
+      border-radius: 40px;
+      border: 3.5px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .showcase-screen-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .showcase-info h3 {
+      font-family: var(--font-heading);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .showcase-info p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .feature-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .gallery-nav-pills {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .gallery-arrow-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .gallery-arrow-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ── HANDS-ON LABS & INTERACTIVE GAMES ── */
+    #labs {
+      padding: 6.5rem 0;
+    }
+
+    .labs-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
     }
 
-    .feature-card {
-      background: linear-gradient(135deg, rgba(20,30,50,0.5), rgba(10,15,30,0.3));
-      padding: 3rem;
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      transition: transform .25s, box-shadow .25s, border-color .25s;
+    .lab-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
     }
 
-    /* accent glow patch in corner */
-    .feature-card::after {
-      content: '';
-      position: absolute;
-      top: -40px;
-      right: -40px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-color, var(--cyan)), transparent 70%);
-      opacity: 0.08;
-      transition: opacity .3s, transform .3s;
+    .lab-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 212, 170, 0.35);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
     }
 
-    .feature-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent-color, var(--cyan));
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--accent-color, var(--cyan)), 0 0 40px rgba(0,229,255,0.08);
+    .lab-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
     }
 
-    .feature-card:hover::after { opacity: 0.18; transform: scale(1.3); }
-
-    /* shimmer sweep */
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent-color, var(--cyan)), transparent);
-      opacity: 0;
-      transition: opacity .3s;
+    .lab-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: rgba(0, 212, 170, 0.1);
+      border: 1px solid rgba(0, 212, 170, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
     }
-    .feature-card:hover::before { opacity: 1; }
 
-    .feature-icon {
-      width: 48px;
-      height: 48px;
+    .lab-title-group h4 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .lab-title-group .lab-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--accent-cyan);
+    }
+
+    .lab-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .lab-code-preview {
+      background: #090D1A;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #80CBC4;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    /* ── INTERVIEW PREP & QUIZ ANALYTICS ── */
+    #interview {
+      padding: 6.5rem 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-glass);
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .interview-split {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    .quiz-card-simulator {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .quiz-sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .quiz-sim-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-amber);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiz-sim-timer {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(0, 212, 170, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .quiz-question-text {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .quiz-options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-sim-opt {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-sim-opt:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .quiz-sim-opt.correct {
+      background: rgba(0, 212, 170, 0.12);
+      border-color: var(--accent-cyan);
+      color: #fff;
+    }
+
+    .quiz-sim-opt.correct .opt-indicator {
+      background: var(--accent-cyan);
+      color: #0A0E21;
+      font-weight: 800;
+    }
+
+    .opt-indicator {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .quiz-explanation-box {
+      background: rgba(0, 212, 170, 0.06);
+      border: 1px solid rgba(0, 212, 170, 0.2);
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── CERTIFICATION & ROADMAP ── */
+    #certification {
+      padding: 6.5rem 0;
+    }
+
+    .cert-showcase-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    .cert-image-frame {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #0D1424;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .cert-image-frame:hover {
+      transform: scale(1.02);
+    }
+
+    .cert-image-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cert-tiers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .cert-tier-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+    }
+
+    .tier-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tier-badge {
+      width: 32px;
+      height: 32px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.5rem;
-      font-size: 1.4rem;
-      border: 1px solid var(--card-border);
-      background: var(--card-bg);
-    }
-
-    .feature-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      margin-bottom: .75rem;
-      letter-spacing: -.01em;
-    }
-
-    .feature-desc {
-      color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.75;
-      font-weight: 300;
-    }
-
-    .feature-tag {
-      display: inline-block;
-      margin-top: 1.25rem;
-      font-size: .7rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--accent-color, var(--cyan));
-      border: 1px solid currentColor;
-      padding: .25rem .75rem;
-      border-radius: 1px;
-      opacity: .7;
-    }
-
-    /* ── SCREENSHOTS ── */
-    #screenshots {
-      padding: 8rem 0;
-      overflow: hidden;
-    }
-
-    .screenshots-intro {
-      max-width: 600px;
-      margin-bottom: 4rem;
-    }
-
-    .screenshots-intro p {
-      color: var(--muted);
-      line-height: 1.8;
-      margin-top: .75rem;
-    }
-
-    .phones-stage {
-      position: relative;
-      height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .phone-frame {
-      position: absolute;
-      width: 220px;
-      background: #0d1424;
-      border-radius: 32px;
-      border: 1.5px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-      overflow: hidden;
-      transition: transform .4s ease;
-    }
-
-    .phone-frame.center {
-      width: 260px;
-      z-index: 3;
-      transform: translateY(-20px) perspective(800px) rotateY(0deg);
-    }
-
-    .phone-frame.left {
-      left: calc(50% - 340px);
-      z-index: 2;
-      transform: perspective(800px) rotateY(18deg) translateX(40px);
-    }
-
-    .phone-frame.right {
-      right: calc(50% - 340px);
-      z-index: 2;
-      transform: perspective(800px) rotateY(-18deg) translateX(-40px);
-    }
-
-    .phone-notch {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 28px;
-      background: #0d1424;
-      border-radius: 0 0 18px 18px;
-      z-index: 2;
-    }
-
-    .phone-screen {
-      width: 100%;
-      aspect-ratio: 9/19.5;
-      background: linear-gradient(160deg, #0a1628 0%, #050c1a 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .phone-screen-inner {
-      width: 100%;
-      height: 100%;
-      padding: 36px 0 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .phone-status-bar {
-      width: 100%;
-      padding: 4px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .phone-status-bar span {
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .screen-content {
-      padding: 0 14px;
-      width: 100%;
-    }
-
-    .screen-module-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 9px;
-      color: var(--cyan);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .screen-heading {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
-      color: #fff;
-      margin-bottom: 10px;
-      line-height: 1.2;
-    }
-
-    .screen-progress-bar {
-      height: 2px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 1px;
-      margin-bottom: 10px;
-      overflow: hidden;
-    }
-
-    .screen-progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      width: 65%;
-    }
-
-    .screen-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 6px;
-      padding: 8px 10px;
-      margin-bottom: 6px;
-    }
-
-    .screen-card-title {
-      font-size: 8px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 3px;
-    }
-
-    .screen-card-sub {
-      font-size: 7px;
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .screen-btn {
-      width: 100%;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      border-radius: 4px;
-      padding: 7px;
-      text-align: center;
-      font-size: 8px;
-      font-weight: 700;
-      color: #000;
-      letter-spacing: .06em;
-      margin-top: 8px;
-    }
-
-    /* quiz screen */
-    .screen-quiz-q {
-      font-size: 9px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
-    .screen-option {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 4px;
-      padding: 6px 8px;
-      margin-bottom: 4px;
-      font-size: 7px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .screen-option.selected {
-      border-color: var(--cyan);
-      color: var(--cyan);
-      background: rgba(0, 229, 255, 0.05);
-    }
-
-    /* roadmap screen */
-    .screen-roadmap-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 7px;
-    }
-
-    .screen-roadmap-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .screen-roadmap-text {
-      font-size: 7px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .screen-roadmap-text strong {
-      color: #fff;
-      display: block;
-      font-size: 8px;
-    }
-
-
-    /* ── NEW SCREENSHOT GALLERY ── */
-    .gallery-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .gallery-tabs {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 0.5rem;
-      border-radius: 100px;
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(10px);
-    }
-
-    .gallery-tab {
-      background: transparent;
-      color: var(--muted);
-      border: none;
-      padding: 0.6rem 1.5rem;
-      border-radius: 100px;
-      font-weight: 600;
+      font-weight: 800;
       font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-family: 'DM Sans', sans-serif;
     }
 
-    .gallery-tab:hover {
-      color: #fff;
+    .tier-badge.platinum { background: linear-gradient(135deg, #E0E7FF, #93C5FD); color: #0F172A; }
+    .tier-badge.gold { background: linear-gradient(135deg, #FEF08A, #F59E0B); color: #78350F; }
+    .tier-badge.silver { background: linear-gradient(135deg, #E2E8F0, #94A3B8); color: #1E293B; }
+    .tier-badge.bronze { background: linear-gradient(135deg, #FDBA74, #C2410C); color: #7C2D12; }
+
+    /* ── INFOGRAPHICS GALLERY SECTION ── */
+    #infographics {
+      padding: 6.5rem 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-glass);
+      border-bottom: 1px solid var(--border-glass);
     }
 
-    .gallery-tab.active {
-      background: var(--cyan);
-      color: #000;
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-    }
-
-    .gallery-stage {
-      position: relative;
-      height: 600px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      perspective: 1000px;
-    }
-
-    .gallery-phone {
-      position: relative;
-      width: 280px;
-      height: 570px;
-      background: #0d1424;
-      border-radius: 36px;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.05);
-      overflow: hidden;
-      transform: rotateY(0deg);
-      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-      z-index: 5;
-    }
-
-    .gallery-phone:hover {
-      transform: translateY(-5px) scale(1.02);
-    }
-
-    .gallery-notch {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 28px;
-      background: #0d1424;
-      border-radius: 0 0 18px 18px;
-      z-index: 10;
-    }
-
-    .gallery-screen {
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .gallery-screen img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transform: scale(1.05);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .gallery-screen img.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* ── STATS ── */
-    #stats {
-      padding: 5rem 0;
-      border-top: 1px solid var(--card-border);
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .stats-grid {
+    .infographics-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 2rem;
-      border-right: 1px solid var(--card-border);
-    }
-
-    .stat-item:last-child {
-      border-right: none;
-    }
-
-    .stat-number {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2rem, 4vw, 3rem);
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: .25rem;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: .8rem;
-      letter-spacing: .05em;
-    }
-
-    /* ── CTA ── */
-    #cta {
-      padding: 10rem 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    #cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(168,85,247,0.12), transparent),
-                  radial-gradient(ellipse 50% 40% at 50% 80%, rgba(0,229,255,0.07), transparent);
-      pointer-events: none;
-    }
-
-    .cta-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: .7rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 1.5rem;
-      padding: .35rem 1rem;
-      border: 1px solid rgba(0,255,136,0.2);
-      border-radius: 100px;
-      background: rgba(0,255,136,0.05);
-    }
-    .cta-eyebrow .live-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s ease infinite;
-    }
-
-    .cta-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1.05;
-      letter-spacing: -.03em;
-      margin-bottom: 1.5rem;
-    }
-
-    .cta-title em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .cta-sub {
-      color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 480px;
-      margin: 0 auto 3rem;
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    .gplay-badge {
-      display: inline-block;
-      transition: transform .2s, opacity .2s;
-    }
-    .gplay-badge:hover { transform: translateY(-4px); opacity: .95; }
-
-    .gplay-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      color: #fff;
-      border-radius: 12px;
-      padding: 1rem 2rem;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: .95rem;
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 0 40px rgba(0,229,255,0.15), 0 20px 60px rgba(0,0,0,0.5);
-      transition: box-shadow .2s, transform .15s;
-    }
-    .gplay-btn svg { width: 28px; height: 28px; }
-    .gplay-btn:hover {
-      box-shadow: 0 0 60px rgba(0,229,255,0.3), 0 20px 60px rgba(0,0,0,0.6);
-      transform: translateY(-3px);
-    }
-    .gplay-btn-text small { display: block; font-size: .65rem; color: rgba(255,255,255,0.5); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2px; }
-    .gplay-btn-text strong { font-size: 1rem; font-family: 'Syne', sans-serif; }
-
-    .cta-soon {
-      font-size: .8rem;
-      color: var(--muted);
-      margin-top: 1.25rem;
-      letter-spacing: .05em;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--card-border);
-      padding: 3rem 0;
-      background: var(--bg2);
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: .95rem;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .footer-copy {
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .footer-links {
-      display: flex;
       gap: 1.5rem;
     }
 
-    .footer-links a {
-      color: var(--muted);
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 212, 170, 0.3);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    }
+
+    .info-thumb-wrap {
+      height: 180px;
+      background: #0A0E21;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .info-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .info-card:hover .info-thumb-wrap img {
+      transform: scale(1.05);
+    }
+
+    .info-meta {
+      padding: 1.25rem;
+    }
+
+    .info-meta h5 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .info-meta p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── LIGHTBOX MODAL ── */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(5, 8, 20, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--border-glass);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-heading);
+    }
+
+    /* ── OFFLINE & PRIVACY FIRST GUARANTEE ── */
+    #privacy-promise {
+      padding: 6.5rem 0;
+    }
+
+    .privacy-box {
+      background: linear-gradient(135deg, rgba(26, 39, 68, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      padding: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .privacy-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .privacy-item {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .priv-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(0, 212, 170, 0.12);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .priv-text h5 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .priv-text p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── DOWNLOAD CTA CALLOUT ── */
+    #download {
+      padding: 6.5rem 0;
+      position: relative;
+    }
+
+    .download-card-big {
+      background: radial-gradient(circle at 50% 0%, rgba(0, 212, 170, 0.15) 0%, transparent 70%),
+                  var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      padding: 4.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .download-card-big .section-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      margin-bottom: 1.25rem;
+    }
+
+    .download-card-big p {
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+    }
+
+    .playstore-button-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: #FFFFFF;
+      color: #0A0E21;
+      padding: 1rem 2.25rem;
+      border-radius: 16px;
       text-decoration: none;
-      font-size: .8rem;
-      transition: color .2s;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .playstore-button-large:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(0, 212, 170, 0.35);
+    }
+
+    .playstore-button-large svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* ── FOOTER ── */
+    footer.page-footer {
+      background: #060914;
+      border-top: 1px solid var(--border-glass);
+      padding: 4.5rem 0 2.5rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .footer-brand-col p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    .footer-col h6 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
     }
 
     .footer-links a:hover {
-      color: var(--cyan);
+      color: var(--accent-cyan);
     }
 
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity .7s ease, transform .7s ease;
+    .footer-bottom {
+      border-top: 1px solid var(--border-glass);
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-delay-1 {
-      transition-delay: .1s;
-    }
-
-    .reveal-delay-2 {
-      transition-delay: .2s;
-    }
-
-    .reveal-delay-3 {
-      transition-delay: .3s;
-    }
-
-    .reveal-delay-4 {
-      transition-delay: .4s;
-    }
-
-    /* ── PARALLAX STARS ── */
-    .stars {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .star {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      background: #fff;
-      border-radius: 50%;
-      animation: twinkle var(--d, 3s) ease infinite;
-      animation-delay: var(--delay, 0s);
-    }
-
-    @keyframes twinkle {
-
-      0%,
-      100% {
-        opacity: .1
+    /* ── RESPONSIVE ADAPTATIONS ── */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
       }
-
-      50% {
-        opacity: .6
+      .hero-content {
+        margin: 0 auto;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .hero-highlights {
+        justify-content: center;
+      }
+      .curriculum-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-showcase-box {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+      }
+      .cert-showcase-box {
+        grid-template-columns: 1fr;
+      }
+      .infographics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .privacy-box {
+        grid-template-columns: 1fr;
+        padding: 2.5rem;
+      }
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
     @media (max-width: 768px) {
-      nav {
-        padding: 1rem 1.5rem;
-      }
-
-      .nav-links {
+      .nav-menu, .btn-nav-download {
         display: none;
       }
-
-      .container {
-        padding: 0 1.5rem;
+      .mobile-toggle {
+        display: block;
       }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-grid {
+      .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-
-      .stat-item:nth-child(2) {
-        border-right: none;
+      .curriculum-grid {
+        grid-template-columns: 1fr;
       }
-
-      .phones-stage {
-        height: 400px;
+      .labs-grid {
+        grid-template-columns: 1fr;
       }
-
-      .phone-frame.left,
-      .phone-frame.right {
+      .interview-split {
+        grid-template-columns: 1fr;
+      }
+      .infographics-grid {
+        grid-template-columns: 1fr;
+      }
+      .floating-callout {
         display: none;
       }
-
-      .phone-frame.center {
-        width: 200px;
+      .footer-top {
+        grid-template-columns: 1fr;
       }
-
-      .footer-inner {
+      .footer-bottom {
         flex-direction: column;
+        gap: 1rem;
         text-align: center;
+      }
+      /* Mobile Menu Drawer */
+      .mobile-drawer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 14, 33, 0.98);
+        backdrop-filter: blur(20px);
+        z-index: 999;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+      }
+      .mobile-drawer.open {
+        display: flex;
+      }
+      .mobile-drawer a {
+        font-family: var(--font-heading);
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+      }
+      .mobile-drawer-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
       }
     }
   </style>
@@ -1452,118 +1575,139 @@
 
 <body>
 
-  <!-- Scan beam effect -->
-  <div class="scan-beam"></div>
-
-  <!-- Ambient orbs -->
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-
-  <!-- Stars background -->
-  <div class="stars" id="stars"></div>
-
-  <!-- Custom cursor -->
-  <div class="cursor" id="cursor">
-    <div class="cursor-dot"></div>
-  </div>
-  <div class="cursor-ring" id="cursor-ring"></div>
-
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <img src="assets/images/app_logo.png" alt="AR Explorer" style="height:32px;width:auto;display:block;" />
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <button class="mobile-drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+    <a href="#curriculum" class="drawer-link">Curriculum (9 Modules)</a>
+    <a href="#experience" class="drawer-link">App Experience</a>
+    <a href="#labs" class="drawer-link">Interactive Labs & Games</a>
+    <a href="#interview" class="drawer-link">Interview Simulator</a>
+    <a href="#certification" class="drawer-link">Certificates</a>
+    <a href="#infographics" class="drawer-link">Infographics</a>
+    <a href="privacy.html" class="drawer-link">Privacy Policy</a>
+    <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="btn-nav-download" style="display:inline-flex; margin-top:1rem;">
+      Get on Google Play ↗
     </a>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#screenshots">App</a>
-      <a href="#stats">About</a>
-      <a href="privacy.html">Privacy</a>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/images/app_logo.png" alt="AR Explorer Logo" />
+        <span class="brand-text">
+          AR Explorer
+          <span class="brand-badge">v1.4</span>
+        </span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#curriculum" class="nav-link">Curriculum</a></li>
+        <li><a href="#experience" class="nav-link">App Gallery</a></li>
+        <li><a href="#labs" class="nav-link">Labs & Games</a></li>
+        <li><a href="#interview" class="nav-link">Interview Prep</a></li>
+        <li><a href="#certification" class="nav-link">Certificates</a></li>
+        <li><a href="#infographics" class="nav-link">Infographics</a></li>
+        <li><a href="privacy.html" class="nav-link">Privacy</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="btn-nav-download">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3.18 23.76c.33.19.7.24 1.06.14L14.88 12 4.24.1C3.88 0 3.51.05 3.18.24 2.51.62 2.1 1.34 2.1 2.14v19.72c0 .8.41 1.52 1.08 1.9z"/>
+            <path d="M18.16 9.59l-2.4-1.38L12.73 12l3.03 3.03 2.4-1.38c.97-.56 1.54-1.52 1.54-2.53s-.57-1.97-1.54-2.53z" opacity=".7"/>
+            <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z" opacity=".5"/>
+          </svg>
+          Get on Google Play
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"/>
+          </svg>
+        </button>
+      </div>
     </div>
-    <a href="#cta" class="nav-cta">Download ↗</a>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO SECTION -->
   <section id="hero">
-    <div class="hero-grid-bg"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-ring"></div>
-    <div class="hero-ring hero-ring-2"></div>
-    <!-- HUD corner brackets -->
-    <div class="hud-corner hud-tl"></div>
-    <div class="hud-corner hud-tr"></div>
-    <div class="hud-corner hud-bl"></div>
-    <div class="hud-corner hud-br"></div>
-    <div class="hero-eyebrow">
-      <span></span> Now on Android
-    </div>
-    <h1 class="hero-title">
-      Master AR.<br />
-      <em>Ship faster.</em>
-    </h1>
-    <p class="hero-sub">
-      Your complete interview companion for Augmented Reality development.
-      From SLAM fundamentals to the AR Cloud — learn deeply, work offline,
-      and walk into any XR interview with confidence.
-    </p>
-    <div class="hero-ctas">
-      <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M3.18 23.76c.33.19.7.24 1.06.14L14.88 12 4.24.1C3.88 0 3.51.05 3.18.24 2.51.62 2.1 1.34 2.1 2.14v19.72c0 .8.41 1.52 1.08 1.9z" />
-          <path d="M18.16 9.59l-2.4-1.38L12.73 12l3.03 3.03 2.4-1.38c.97-.56 1.54-1.52 1.54-2.53s-.57-1.97-1.54-2.53z"
-            opacity=".7" />
-          <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z" opacity=".5" />
-        </svg>
-        Get on Google Play
-      </a>
-      <a href="#features" class="btn-secondary">Explore features →</a>
-    </div>
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+    <div class="hero-spatial-bg"></div>
+    <div class="hero-grid-lines"></div>
 
-  <!-- IMAGE SEQUENCE SECTION -->
-  <div id="sequence-section">
-    <div class="sequence-sticky">
-      <canvas id="sequence-canvas"></canvas>
-      <div class="sequence-overlay"></div>
-      <div class="sequence-purple-glow"></div>
-      <div class="sequence-text-container">
-        <div class="seq-text" id="seq-text-0">Step into the<br /><em>future of AR</em></div>
-        <div class="seq-text" id="seq-text-1">Learn the <em>algorithms</em><br />behind spatial tracking</div>
-        <div class="seq-text" id="seq-text-2">Understand <em>OpenXR</em>,<br />the unified XR standard</div>
-        <div class="seq-text" id="seq-text-3">Master <em>every concept</em><br />before your interview</div>
-      </div>
-      <div class="frame-counter" id="frame-counter">00 / 60</div>
-    </div>
-  </div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="pill-eyebrow">
+          <span class="pulse-dot"></span>
+          Now Available on Android • 100% Offline & Free
+        </div>
+        <h1 class="hero-title">
+          Master Augmented Reality. <br />
+          <span class="gradient-text">From SLAM to OpenXR.</span>
+        </h1>
+        <p class="hero-description">
+          The ultimate interactive mobile learning companion for XR engineers.
+          Master spatial coordinates, diagnose 3D tracking bugs, crack real-world technical interviews, and earn verified industry certificates.
+        </p>
 
-  <!-- SCREENSHOTS OVERHAUL -->
-  <section id="screenshots">
-    <div class="container">
-      <div class="screenshots-intro reveal">
-        <div class="section-label">Real Experience</div>
-        <h2 class="section-title">Step inside the<br /><em>AR Workspace</em></h2>
-        <p>A beautifully gamified, dark-mode focused environment. Designed to keep you immersed while mastering spatial
-          computing concepts and interactive code challenges.</p>
-      </div>
-
-      <div class="gallery-container reveal">
-        <div class="gallery-tabs">
-          <button class="gallery-tab active" data-cat="all">All Features</button>
-          <button class="gallery-tab" data-cat="roadmap">Roadmap & Interview</button>
-          <button class="gallery-tab" data-cat="games">Modules & Games</button>
-          <button class="gallery-tab" data-cat="analytics">Analytics</button>
+        <div class="hero-buttons">
+          <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="btn-cta-main">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.18 23.76c.33.19.7.24 1.06.14L14.88 12 4.24.1C3.88 0 3.51.05 3.18.24 2.51.62 2.1 1.34 2.1 2.14v19.72c0 .8.41 1.52 1.08 1.9z"/>
+              <path d="M18.16 9.59l-2.4-1.38L12.73 12l3.03 3.03 2.4-1.38c.97-.56 1.54-1.52 1.54-2.53s-.57-1.97-1.54-2.53z"/>
+              <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z"/>
+            </svg>
+            Download for Android
+          </a>
+          <a href="#curriculum" class="btn-cta-secondary">
+            Explore 9 Modules →
+          </a>
         </div>
 
-        <div class="gallery-stage">
-          <div class="gallery-phone">
-            <div class="gallery-notch"></div>
-            <div class="gallery-screen" id="gallery-screen">
-              <!-- Images will be injected here via Javascript -->
+        <div class="hero-highlights">
+          <div class="highlight-item">
+            <svg class="highlight-icon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            <span>Fully Offline Capable</span>
+          </div>
+          <div class="highlight-item">
+            <svg class="highlight-icon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            <span>No Account Required</span>
+          </div>
+          <div class="highlight-item">
+            <svg class="highlight-icon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            <span>Verified Credentials</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO VISUAL MOCKUP -->
+      <div class="hero-visual">
+        <div class="phone-mockup-wrapper">
+          <div class="mockup-ambient-glow"></div>
+          
+          <!-- Floating badge: XP & Level -->
+          <div class="floating-callout badge-top">
+            <div class="callout-icon" style="background: rgba(0, 212, 170, 0.15); color: var(--accent-cyan);">⚡</div>
+            <div>
+              <div class="callout-title">AR Master • 1730 XP</div>
+              <div class="callout-sub">Daily Concept Streak: 7 Days</div>
+            </div>
+          </div>
+
+          <!-- Floating badge: Debugger -->
+          <div class="floating-callout badge-bottom">
+            <div class="callout-icon" style="background: rgba(187, 134, 252, 0.15); color: var(--accent-purple);">🧭</div>
+            <div>
+              <div class="callout-title">SLAM Lab & Debugger</div>
+              <div class="callout-sub">60 FPS Realtime Tracking</div>
+            </div>
+          </div>
+
+          <div class="phone-mockup">
+            <div class="phone-notch-pill">
+              <div class="notch-camera"></div>
+            </div>
+            <div class="phone-screen">
+              <img src="assets/images/screenshots/Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg" alt="AR Explorer Home Screen" />
             </div>
           </div>
         </div>
@@ -1571,414 +1715,870 @@
     </div>
   </section>
 
-  <!-- FEATURES -->
-  <section id="features">
+  <!-- METRICS / STATS STRIP -->
+  <section class="metrics-section">
     <div class="container">
-      <div class="features-intro reveal">
-        <div class="section-label">What you'll master</div>
-        <h2 class="section-title">Built for <em>serious</em><br />AR engineers</h2>
-        <p>Every module is crafted around real-world interview questions and production AR challenges. No fluff — just
-          what you actually need to know.</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card reveal" style="--accent-color: var(--cyan)">
-          <div class="feature-icon">🧭</div>
-          <div class="feature-name">SLAM Deep Dive</div>
-          <div class="feature-desc">Understand the simultaneous localization and mapping algorithms that power every
-            modern AR device. Go beyond the surface — learn the math and the intuition.</div>
-          <div class="feature-tag">Tracking</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value highlight-cyan">9</div>
+          <div class="metric-label">Comprehensive Modules</div>
         </div>
-        <div class="feature-card reveal reveal-delay-1" style="--accent-color: var(--purple)">
-          <div class="feature-icon">⬡</div>
-          <div class="feature-name">OpenXR Standard</div>
-          <div class="feature-desc">Learn the Khronos Group's unified API that powers cross-platform XR development.
-            Understand runtimes, extensions, and how to write once and run everywhere.</div>
-          <div class="feature-tag">Standards</div>
+        <div class="metric-card">
+          <div class="metric-value">50+</div>
+          <div class="metric-label">Interview Challenges</div>
         </div>
-        <div class="feature-card reveal reveal-delay-2" style="--accent-color: var(--gold)">
-          <div class="feature-icon">⚡</div>
-          <div class="feature-name">Performance Profiling</div>
-          <div class="feature-desc">Thermal management, GPU profiling, render budget optimization. Know exactly how to
-            keep your AR experience at 60fps on real devices — not just on spec sheets.</div>
-          <div class="feature-tag">Optimization</div>
+        <div class="metric-card">
+          <div class="metric-value">4</div>
+          <div class="metric-label">Interactive Lab Games</div>
         </div>
-        <div class="feature-card reveal reveal-delay-3" style="--accent-color: var(--pink)">
-          <div class="feature-icon">✨</div>
-          <div class="feature-name">Neon Premium Theme</div>
-          <div class="feature-desc">Go beyond the dark side. Unlock the exclusive Neon aesthetic with vibrant glows,
-            high-contrast accents, and premium animations designed for the ultimate coding atmosphere.</div>
-          <div class="feature-tag">Premium</div>
-        </div>
-      </div>
-      <!-- More features row -->
-      <div class="features-grid" style="margin-top: 1.5px;">
-        <div class="feature-card reveal" style="--accent-color: var(--cyan)">
-          <div class="feature-icon">👨‍💻</div>
-          <div class="feature-name">Systems Engineer & XR Builder</div>
-          <div class="feature-desc">Assemble spatial UI via the new XR Builder and write production code for
-            Vuforia/ARKit features. Advanced gamification tests your logic directly.</div>
-          <div class="feature-tag">Zone 1 Free</div>
-        </div>
-        <div class="feature-card reveal reveal-delay-1" style="--accent-color: var(--purple)">
-          <div class="feature-icon">🧩</div>
-          <div class="feature-name">Pipeline Sandbox & Debugger</div>
-          <div class="feature-desc">Hunt for spatial tracking glitches inside the 3D-visualized AR Debugger and
-            architect complex rendering logic inside the interactive Pipeline Sandbox.</div>
-          <div class="feature-tag">Pro Only</div>
-        </div>
-        <div class="feature-card reveal reveal-delay-2" style="--accent-color: var(--gold)">
-          <div class="feature-icon">📜</div>
-          <div class="feature-name">Sharable Certificates</div>
-          <div class="feature-desc">Earn and share personalized certificates as you master modules. Perfect for your
-            LinkedIn profile or portfolio to show off your AR expertise.</div>
-          <div class="feature-tag">Achievements</div>
-        </div>
-        <div class="feature-card reveal reveal-delay-3" style="--accent-color: var(--pink)">
-          <div class="feature-icon">🔥</div>
-          <div class="feature-name">Streak & XP Multiplier</div>
-          <div class="feature-desc">Stay consistent with weekly challenges and streak freezes. Premium users enjoy a
-            permanent 2x XP multiplier to climb the leaderboard faster.</div>
-          <div class="feature-tag">Growth</div>
+        <div class="metric-card">
+          <div class="metric-value highlight-cyan">100%</div>
+          <div class="metric-label">Offline & Private</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS -->
-  <section id="stats">
+  <!-- CURRICULUM SECTION (ALL 9 MODULES) -->
+  <section id="curriculum">
     <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item reveal">
-          <div class="stat-number">6+</div>
-          <div class="stat-label">Core modules</div>
-        </div>
-        <div class="stat-item reveal reveal-delay-1">
-          <div class="stat-number">50+</div>
-          <div class="stat-label">Interview questions</div>
-        </div>
-        <div class="stat-item reveal reveal-delay-2">
-          <div class="stat-number">100%</div>
-          <div class="stat-label">Offline Core</div>
-        </div>
-        <div class="stat-item reveal reveal-delay-3">
-          <div class="stat-number">Zero</div>
-          <div class="stat-label">Server Data</div>
-        </div>
+      <div class="section-header">
+        <div class="section-tag">Structured Learning Path</div>
+        <h2 class="section-title">The Complete <span class="accent">AR & Spatial</span> Curriculum</h2>
+        <p class="section-desc">
+          Engineered around industry standards, academic foundations, and real technical interviews at top spatial computing firms.
+        </p>
       </div>
-    </div>
-  </section>
 
-  <!-- CTA -->
-  <section id="cta">
-    <div class="container">
-      <div class="cta-eyebrow"><span class="live-dot"></span>Available now on Android</div>
-      <h2 class="cta-title">Start your<br /><em>AR journey</em><br />today</h2>
-      <p class="cta-sub">
-        Download AR Explorer for free. No account, no internet required.
-        Just you, the knowledge, and the career you're building.
-      </p>
-      <div class="gplay-badge">
-        <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="gplay-btn" id="play-store-link">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M3.18 23.76c.33.19.7.24 1.06.14L14.88 12 4.24.1C3.88 0 3.51.05 3.18.24 2.51.62 2.1 1.34 2.1 2.14v19.72c0 .8.41 1.52 1.08 1.9z" fill="#4285F4" />
-            <path d="M18.16 9.59l-2.4-1.38L12.73 12l3.03 3.03 2.4-1.38c.97-.56 1.54-1.52 1.54-2.53s-.57-1.97-1.54-2.53z" fill="#FBBC04" />
-            <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z" fill="#34A853" opacity=".9" />
-            <path d="M4.24.1l10.64 11.9L5.24 23.9l-1-.86V.96z" fill="#EA4335" opacity=".8" />
-          </svg>
-          <div class="gplay-btn-text">
-            <small>Get it on</small>
-            <strong>Google Play</strong>
+      <div class="curriculum-grid">
+        <!-- Module 0 -->
+        <div class="curriculum-card" style="--card-accent: #00D4AA;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 0 • Fundamentals</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            </div>
           </div>
+          <h3 class="module-title">AR Basics: Core Definitions</h3>
+          <p class="module-desc">Clear mental models without noise: Ronald Azuma's 3 Pillars of AR, Optical See-Through (OST) vs Video See-Through (VST).</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> What Is Augmented Reality?</li>
+            <li class="topic-item"><span class="topic-dot"></span> AR vs VR vs MR vs XR Defined</li>
+            <li class="topic-item"><span class="topic-dot"></span> Real-World Production Examples</li>
+          </ul>
+        </div>
+
+        <!-- Module 1 -->
+        <div class="curriculum-card" style="--card-accent: #4FC3F7;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 1 • Mathematics</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"/><circle cx="7" cy="18" r="2"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">Coordinate Systems for AR</h3>
+          <p class="module-desc">Master the spatial math essential for XR: World frame, Camera frame, Local frames, Quaternions, and 4×4 affine transformation matrices.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> Left-Handed vs Right-Handed Conventions</li>
+            <li class="topic-item"><span class="topic-dot"></span> Euler Angles & Gimbal Lock</li>
+            <li class="topic-item"><span class="topic-dot"></span> Quaternion Math & Pose Representation</li>
+          </ul>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="curriculum-card" style="--card-accent: #BB86FC;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 2 • Foundations</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">Strategic AR Foundations</h3>
+          <p class="module-desc">Architectural principles of tracking, digital registration, camera calibration, and the hardware constraints of modern spatial headsets.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> Environmental Anchors & Persistence</li>
+            <li class="topic-item"><span class="topic-dot"></span> Field of View (FOV) & Eye Relief</li>
+            <li class="topic-item"><span class="topic-dot"></span> Spatial Perception & Depth Cues</li>
+          </ul>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="curriculum-card" style="--card-accent: #FFCA28;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 3 • Deep Tech</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">SLAM & Technical Concepts</h3>
+          <p class="module-desc">Simultaneous Localization and Mapping under the hood. Visual-Inertial Odometry (VIO), Kalman Filtering, Bundle Adjustment, and the AR Cloud.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> Monocular vs Stereo vs VIO SLAM</li>
+            <li class="topic-item"><span class="topic-dot"></span> Loop Closure & Relocalization</li>
+            <li class="topic-item"><span class="topic-dot"></span> AR Cloud & Multi-User Shared Anchors</li>
+          </ul>
+        </div>
+
+        <!-- Module 4 -->
+        <div class="curriculum-card" style="--card-accent: #FF8A65;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 4 • SDKs & Standards</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">Development: OpenXR, ARCore & ARKit</h3>
+          <p class="module-desc">The Khronos OpenXR standard, cross-platform Unity AR Foundation, native iOS ARKit, and Android Google ARCore APIs compared in detail.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> OpenXR Runtime & Extension Architecture</li>
+            <li class="topic-item"><span class="topic-dot"></span> Plane Detection & Hit-Testing Pipelines</li>
+            <li class="topic-item"><span class="topic-dot"></span> Feature Matrix: ARCore vs ARKit</li>
+          </ul>
+        </div>
+
+        <!-- Module 5 -->
+        <div class="curriculum-card" style="--card-accent: #FF6B9D;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 5 • UX & Interaction</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">Spatial UX & Design Systems</h3>
+          <p class="module-desc">Designing interfaces for 3D space: Ergonomic comfort zones, vergence-accommodation conflict, gaze interactions, and spatial audio cues.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> 3D UI Scale & Billboarding Rules</li>
+            <li class="topic-item"><span class="topic-dot"></span> Gesture Mechanics & Hand-Tracking</li>
+            <li class="topic-item"><span class="topic-dot"></span> Reducing Spatial Fatigue & Motion Sickness</li>
+          </ul>
+        </div>
+
+        <!-- Module 6 -->
+        <div class="curriculum-card" style="--card-accent: #00D4AA;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 6 • Optimization</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">Stability & 60 FPS Deep Dive</h3>
+          <p class="module-desc">Production profiling: Thermal throttling, draw-call budgets, occlusion culling, tracking drift mitigation, and GPU rendering pipelines.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> 16.6ms Render Budget Architecture</li>
+            <li class="topic-item"><span class="topic-dot"></span> Diagnosing & Fixing Anchor Drift</li>
+            <li class="topic-item"><span class="topic-dot"></span> Lighting Estimation & Real-time Shaders</li>
+          </ul>
+        </div>
+
+        <!-- Module 7 -->
+        <div class="curriculum-card" style="--card-accent: #4FC3F7;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 7 • Mobile Engineering</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">Implementing AR in Flutter</h3>
+          <p class="module-desc">Bridging Flutter with native AR capabilities: Android PlatformViews, iOS UiKitView, MethodChannels, and reactive state management.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> Flutter AR Platform Channel Architecture</li>
+            <li class="topic-item"><span class="topic-dot"></span> Managing Camera Lifecycle & Memory</li>
+            <li class="topic-item"><span class="topic-dot"></span> Overlaying 2D UI on 3D Camera Feeds</li>
+          </ul>
+        </div>
+
+        <!-- Module 8 -->
+        <div class="curriculum-card" style="--card-accent: #BB86FC;">
+          <div class="card-top-row">
+            <span class="module-badge">Module 8 • Web & Instant AR</span>
+            <div class="module-icon-wrap">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+            </div>
+          </div>
+          <h3 class="module-title">Google AR Viewer & WebXR</h3>
+          <p class="module-desc">Frictionless 3D previews: Android Scene Viewer intents, Apple Quick Look USDZ integration, and the modern browser WebXR Device API.</p>
+          <ul class="module-topics-list">
+            <li class="topic-item"><span class="topic-dot"></span> Google Scene Viewer Intent Protocols</li>
+            <li class="topic-item"><span class="topic-dot"></span> glTF / GLB vs USDZ Asset Workflows</li>
+            <li class="topic-item"><span class="topic-dot"></span> Instant AR Deployment for E-Commerce</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE APP EXPERIENCE SHOWCASE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Interactive Preview</div>
+        <h2 class="section-title">Designed for <span class="accent">Deep Engineering Focus</span></h2>
+        <p class="section-desc">Explore the actual screens from AR Explorer. Switch categories below to inspect real app features.</p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="gallery-tabs-nav" id="galleryTabs">
+        <button class="gallery-tab-btn active" data-tab="dashboard">📱 Home & Daily Concepts</button>
+        <button class="gallery-tab-btn" data-tab="curriculum">📚 Rich Lessons & Reader</button>
+        <button class="gallery-tab-btn" data-tab="labs">🛠️ Interactive Labs & Debugger</button>
+        <button class="gallery-tab-btn" data-tab="interview">🎯 Interview Prep & Quizzes</button>
+        <button class="gallery-tab-btn" data-tab="cert">🏆 Certificates & Roadmap</button>
+      </div>
+
+      <!-- Tab Content Showcase Box -->
+      <div class="gallery-showcase-box" id="showcaseBox">
+        <div class="showcase-phone-stage">
+          <div class="showcase-phone-frame">
+            <div class="phone-notch-pill">
+              <div class="notch-camera"></div>
+            </div>
+            <img id="showcaseImg" class="showcase-screen-img" src="assets/images/screenshots/Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg" alt="AR Explorer Feature Screenshot" />
+          </div>
+        </div>
+
+        <div class="showcase-info">
+          <h3 id="showcaseTitle">Daily AR Concepts & Gamified XP</h3>
+          <p id="showcaseDesc">
+            Start every morning with our persistent Daily Keyword banner. Learn essential XR terms, build your daily streak, and level up your engineering rank from Novice to AR Master.
+          </p>
+
+          <ul class="feature-checklist" id="showcaseChecklist">
+            <li class="checklist-item">
+              <span class="check-icon">✓</span>
+              <span>Persistent Daily Keyword banner with in-depth technical definitions</span>
+            </li>
+            <li class="checklist-item">
+              <span class="check-icon">✓</span>
+              <span>XP tracking, streaks, and global level progression</span>
+            </li>
+            <li class="checklist-item">
+              <span class="check-icon">✓</span>
+              <span>Quick access to modules, quizzes, and your career roadmap</span>
+            </li>
+          </ul>
+
+          <div class="gallery-nav-pills">
+            <button class="gallery-arrow-btn" id="prevScreenBtn" aria-label="Previous screenshot">←</button>
+            <button class="gallery-arrow-btn" id="nextScreenBtn" aria-label="Next screenshot">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HANDS-ON LABS & INTERACTIVE GAMES SECTION -->
+  <section id="labs">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Learn By Doing</div>
+        <h2 class="section-title">Built-In <span class="accent">Interactive Labs</span> & Games</h2>
+        <p class="section-desc">
+          Stop passively reading theory. AR Explorer features interactive simulators and gamified engineering puzzles that test your spatial intuition.
+        </p>
+      </div>
+
+      <div class="labs-grid">
+        <!-- Lab 1: AR Scene Debugger -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <div class="lab-icon-box">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+            </div>
+            <div class="lab-title-group">
+              <span class="lab-tag">Interactive Simulation</span>
+              <h4>AR Scene Debugger</h4>
+            </div>
+          </div>
+          <p class="lab-desc">
+            You just launched your AR experience and got a black camera feed, anchor drift, or lighting mismatch. Step into the debugger to diagnose the camera pipeline, permissions, and depth buffers.
+          </p>
+          <div class="lab-code-preview">
+            <code>// Scenario: Camera Feed Black Screen<br/>
+if (!ARSession.isSupported) fallback2D();<br/>
+session.requestCameraPermission().then(initPose);</code>
+          </div>
+        </div>
+
+        <!-- Lab 2: SLAM Lab Simulator -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <div class="lab-icon-box" style="background: rgba(79, 195, 247, 0.1); color: var(--accent-blue); border-color: rgba(79, 195, 247, 0.25);">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            </div>
+            <div class="lab-title-group">
+              <span class="lab-tag" style="color: var(--accent-blue);">Spatial Odometry</span>
+              <h4>SLAM Lab Simulator</h4>
+            </div>
+          </div>
+          <p class="lab-desc">
+            Visualize the point-cloud generation, feature extraction, and loop-closure algorithms. Understand how IMU accelerometer data fuses with optical feature vectors to eliminate drift.
+          </p>
+          <div class="lab-code-preview">
+            <code>// Visual Inertial Fusion Dock<br/>
+Eigen::Matrix4d pose = EKF.update(opticalFlow, imuDelta);<br/>
+map.triangulateKeyframePoints(pose);</code>
+          </div>
+        </div>
+
+        <!-- Lab 3: Hands-On Code Challenges -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <div class="lab-icon-box" style="background: rgba(187, 134, 252, 0.1); color: var(--accent-purple); border-color: rgba(187, 134, 252, 0.25);">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="lab-title-group">
+              <span class="lab-tag" style="color: var(--accent-purple);">Hands-On Programming</span>
+              <h4>Code Challenges (Unity, C#, ARKit)</h4>
+            </div>
+          </div>
+          <p class="lab-desc">
+            Solve "Fill-in-the-gap" coding exercises. Wire up Vuforia DefaultObserverEventHandlers, ARKit ARWorldTrackingConfigurations, and ARCore Cloud Anchor resolution directly in the app.
+          </p>
+          <div class="lab-code-preview">
+            <code>public class MarkerHandler : DefaultObserverEventHandler {<br/>
+&nbsp;&nbsp;protected override void OnTrackingFound() { Show3D(); }<br/>
+}</code>
+          </div>
+        </div>
+
+        <!-- Lab 4: XR Builder & Spatial Pipeline -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <div class="lab-icon-box" style="background: rgba(255, 202, 40, 0.1); color: var(--accent-amber); border-color: rgba(255, 202, 40, 0.25);">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+            <div class="lab-title-group">
+              <span class="lab-tag" style="color: var(--accent-amber);">Spatial Architect</span>
+              <h4>XR Builder & Pipeline Sandbox</h4>
+            </div>
+          </div>
+          <p class="lab-desc">
+            Assemble virtual targets, adjust 3D coordinate pivots, and fine-tune raycast interaction thresholds. Learn spatial UX constraints inside an interactive sandboxed environment.
+          </p>
+          <div class="lab-code-preview">
+            <code>Vector3 targetAnchor = raycastHit.pose.position;<br/>
+Quaternion orientation = Quaternion.LookRotation(cameraDir);<br/>
+Instantiate(prefab, targetAnchor, orientation);</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERVIEW SIMULATOR & ASSESSMENTS -->
+  <section id="interview">
+    <div class="container">
+      <div class="interview-split">
+        <div class="interview-text-col">
+          <div class="section-tag" style="color: var(--accent-amber); background: rgba(255, 202, 40, 0.08); border-color: rgba(255, 202, 40, 0.25);">
+            Career Readiness
+          </div>
+          <h2 class="section-title">
+            Crack Your Next <br />
+            <span class="accent">XR Technical Interview</span>
+          </h2>
+          <p class="section-desc" style="margin-bottom: 2rem;">
+            Over 50 rigorously curated interview challenges with timed simulations, hints, attempt limits, and detailed breakdowns covering graphics pipelines, coordinate conversions, and tracking algorithms.
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:1.25rem;">
+            <div style="display:flex; gap:1rem; align-items:flex-start;">
+              <div class="check-icon" style="background: rgba(255, 202, 40, 0.15); color: var(--accent-amber);">✓</div>
+              <div>
+                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Timed Mock Interviews</h5>
+                <p style="color:var(--text-secondary); font-size:0.88rem;">Realistic 5-minute timers per question category with attempt penalty systems.</p>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:1rem; align-items:flex-start;">
+              <div class="check-icon" style="background: rgba(255, 202, 40, 0.15); color: var(--accent-amber);">✓</div>
+              <div>
+                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Advanced Accuracy Analytics</h5>
+                <p style="color:var(--text-secondary); font-size:0.88rem;">Identify weak areas across tracking, optics, shaders, and cross-platform APIs.</p>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:1rem; align-items:flex-start;">
+              <div class="check-icon" style="background: rgba(255, 202, 40, 0.15); color: var(--accent-amber);">✓</div>
+              <div>
+                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Spaced Repetition Flashcards</h5>
+                <p style="color:var(--text-secondary); font-size:0.88rem;">Quick-study flashcard decks for essential AR terminology and equations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Question Card Simulator on the page -->
+        <div class="quiz-card-simulator">
+          <div class="quiz-sim-header">
+            <div class="quiz-sim-badge">
+              <span>⚡</span> AR Technical Interview • Q3/10
+            </div>
+            <div class="quiz-sim-timer" id="mockTimer">04:32</div>
+          </div>
+
+          <div class="quiz-question-text">
+            What is the primary mathematical reason quaternions are favored over Euler angles in 3D spatial tracking?
+          </div>
+
+          <div class="quiz-options-group" id="mockOptions">
+            <div class="quiz-sim-opt" onclick="selectMockOption(this, false)">
+              <span class="opt-indicator">A</span>
+              <span>They consume less memory on mobile GPUs</span>
+            </div>
+            <div class="quiz-sim-opt correct" onclick="selectMockOption(this, true)">
+              <span class="opt-indicator">B</span>
+              <span>They avoid Gimbal Lock and interpolate smoothly (SLERP)</span>
+            </div>
+            <div class="quiz-sim-opt" onclick="selectMockOption(this, false)">
+              <span class="opt-indicator">C</span>
+              <span>They require zero matrix multiplication</span>
+            </div>
+            <div class="quiz-sim-opt" onclick="selectMockOption(this, false)">
+              <span class="opt-indicator">D</span>
+              <span>They are natively executed in hardware by IMUs</span>
+            </div>
+          </div>
+
+          <div class="quiz-explanation-box">
+            <strong style="color:var(--accent-cyan); display:block; margin-bottom:4px;">✓ Correct Explanation:</strong>
+            Quaternions represent 3D orientation without Gimbal Lock (loss of a degree of freedom when axes align) and provide seamless Spherical Linear Interpolation (SLERP) for smooth camera poses.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATION & CAREER ROADMAP -->
+  <section id="certification">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Proof of Skill</div>
+        <h2 class="section-title">Verified <span class="accent">Industry Certifications</span></h2>
+        <p class="section-desc">
+          Validate your mastery. As you complete modules and conquer interview challenges, unlock tiered credentials ready to export to PDF and share on LinkedIn.
+        </p>
+      </div>
+
+      <div class="cert-showcase-box">
+        <div class="cert-image-frame" onclick="openLightbox('assets/images/ARexplorerCertif.png', 'AR Explorer Platinum Credential')">
+          <img src="assets/images/ARexplorerCertif.png" alt="AR Explorer Certificate of Achievement" />
+        </div>
+
+        <div class="cert-details">
+          <h3 style="font-family:var(--font-heading); font-size:1.85rem; font-weight:800; color:#fff; margin-bottom:1rem;">
+            Tiered Certification System
+          </h3>
+          <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:1.5rem;">
+            Unlike generic course certificates, AR Explorer credentials require passing practical code challenges, high-score quiz requirements, and timed interview questions.
+          </p>
+
+          <div class="cert-tiers-list">
+            <div class="cert-tier-pill">
+              <div class="tier-meta">
+                <div class="tier-badge platinum">PT</div>
+                <div>
+                  <h5 style="color:#fff; font-family:var(--font-heading); font-size:0.95rem;">Platinum Tier • Principal Architect</h5>
+                  <p style="color:var(--text-muted); font-size:0.8rem;">100% Curriculum + All Lab Challenges Cleared</p>
+                </div>
+              </div>
+              <span style="color:var(--accent-cyan); font-weight:700; font-size:0.82rem;">1,500+ XP</span>
+            </div>
+
+            <div class="cert-tier-pill">
+              <div class="tier-meta">
+                <div class="tier-badge gold">AU</div>
+                <div>
+                  <h5 style="color:#fff; font-family:var(--font-heading); font-size:0.95rem;">Gold Tier • Senior AR Engineer</h5>
+                  <p style="color:var(--text-muted); font-size:0.8rem;">Advanced Modules + Interview Simulator Passed</p>
+                </div>
+              </div>
+              <span style="color:var(--accent-amber); font-weight:700; font-size:0.82rem;">1,000+ XP</span>
+            </div>
+
+            <div class="cert-tier-pill">
+              <div class="tier-meta">
+                <div class="tier-badge silver">AG</div>
+                <div>
+                  <h5 style="color:#fff; font-family:var(--font-heading); font-size:0.95rem;">Silver Tier • AR Developer</h5>
+                  <p style="color:var(--text-muted); font-size:0.8rem;">Core Foundations + Code Challenges Complete</p>
+                </div>
+              </div>
+              <span style="color:#94A3B8; font-weight:700; font-size:0.82rem;">600+ XP</span>
+            </div>
+
+            <div class="cert-tier-pill">
+              <div class="tier-meta">
+                <div class="tier-badge bronze">CU</div>
+                <div>
+                  <h5 style="color:#fff; font-family:var(--font-heading); font-size:0.95rem;">Bronze Tier • Foundation Specialist</h5>
+                  <p style="color:var(--text-muted); font-size:0.8rem;">Basics & Coordinate Systems Mastery</p>
+                </div>
+              </div>
+              <span style="color:#FDBA74; font-weight:700; font-size:0.82rem;">250+ XP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATIONAL INFOGRAPHICS GALLERY -->
+  <section id="infographics">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Visual Reference Library</div>
+        <h2 class="section-title">High-Fidelity <span class="accent">Spatial Infographics</span></h2>
+        <p class="section-desc">
+          Complex topics visualized with clarity. Click on any infographic below to view high-resolution diagrams directly from the application.
+        </p>
+      </div>
+
+      <div class="infographics-grid">
+        <!-- Graphic 1: Spectrum -->
+        <div class="info-card" onclick="openLightbox('assets/images/understanding_the_spectrum.png', 'Understanding the Reality Spectrum: AR vs VR vs MR vs XR')">
+          <div class="info-thumb-wrap">
+            <img src="assets/images/understanding_the_spectrum.png" alt="AR vs VR vs MR spectrum" loading="lazy" />
+          </div>
+          <div class="info-meta">
+            <h5>The Reality Spectrum</h5>
+            <p>Milgram-Kishino Continuum: AR vs VR vs MR vs XR.</p>
+          </div>
+        </div>
+
+        <!-- Graphic 2: Evolution -->
+        <div class="info-card" onclick="openLightbox('assets/images/evolution_spatial_computing.png', 'Evolution of Spatial Computing & Augmented Reality')">
+          <div class="info-thumb-wrap">
+            <img src="assets/images/evolution_spatial_computing.png" alt="Evolution of Spatial Computing" loading="lazy" />
+          </div>
+          <div class="info-meta">
+            <h5>Evolution of Spatial Tech</h5>
+            <p>From Ivan Sutherland's Sword of Damocles to Vision Pro.</p>
+          </div>
+        </div>
+
+        <!-- Graphic 3: Coordinates -->
+        <div class="info-card" onclick="openLightbox('assets/images/coordinates_systems.png', 'Coordinate Systems in AR & 3D Space')">
+          <div class="info-thumb-wrap">
+            <img src="assets/images/coordinates_systems.png" alt="Coordinate Systems in AR" loading="lazy" />
+          </div>
+          <div class="info-meta">
+            <h5>3D Coordinate Systems</h5>
+            <p>World, Camera & Screen Frames with Euler & Quaternions.</p>
+          </div>
+        </div>
+
+        <!-- Graphic 4: Misconceptions -->
+        <div class="info-card" onclick="openLightbox('assets/images/real_world_vs_misconceptions.png', 'Real World Examples vs Common Misconceptions in AR')">
+          <div class="info-thumb-wrap">
+            <img src="assets/images/real_world_vs_misconceptions.png" alt="Real World Examples vs Misconceptions" loading="lazy" />
+          </div>
+          <div class="info-meta">
+            <h5>Real World vs Myths</h5>
+            <p>Demystifying screen overlays versus true 3D spatial registration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFLINE & PRIVACY FIRST PROMISE -->
+  <section id="privacy-promise">
+    <div class="container">
+      <div class="privacy-box">
+        <div>
+          <div class="section-tag">Architected for Freedom</div>
+          <h2 class="section-title">100% Offline. <br /><span class="accent">Zero Data Collected.</span></h2>
+          <p class="section-desc">
+            Your education should never be gated behind an internet connection or tracking pixels. AR Explorer is completely self-contained.
+          </p>
+        </div>
+
+        <ul class="privacy-list">
+          <li class="privacy-item">
+            <div class="priv-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 4.243a9 9 0 01-12.728 0m0 0l2.829-2.829m-2.829 2.829L3 21m2.828-12.536a5 5 0 017.072 0m0 0l2.829-2.829"/></svg>
+            </div>
+            <div class="priv-text">
+              <h5>Full Offline Capability</h5>
+              <p>Learn on flights, subways, or off the grid. All 9 modules, quizzes, labs, and infographics are bundled on-device.</p>
+            </div>
+          </li>
+
+          <li class="privacy-item">
+            <div class="priv-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <div class="priv-text">
+              <h5>No Account or Sign-In Needed</h5>
+              <p>No passwords to remember, no forced email subscriptions. Open the app and begin studying immediately.</p>
+            </div>
+          </li>
+
+          <li class="privacy-item">
+            <div class="priv-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div class="priv-text">
+              <h5>Privacy-First Design</h5>
+              <p>Your notes, bookmarks, quiz scores, and XP progress remain stored strictly in local device memory.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD CTA BANNER -->
+  <section id="download">
+    <div class="container">
+      <div class="download-card-big">
+        <div class="section-tag" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15); color:#fff;">
+          Ready to become an XR Engineer?
+        </div>
+        <h2 class="section-title">Start Your Augmented Reality <br /><span class="gradient-text">Mastery Today</span></h2>
+        <p>
+          Download AR Explorer for free on Android. No subscriptions required to start learning the fundamental pillars of spatial computing.
+        </p>
+
+        <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="playstore-button-large">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3.18 23.76c.33.19.7.24 1.06.14L14.88 12 4.24.1C3.88 0 3.51.05 3.18.24 2.51.62 2.1 1.34 2.1 2.14v19.72c0 .8.41 1.52 1.08 1.9z" fill="#4285F4"/>
+            <path d="M18.16 9.59l-2.4-1.38L12.73 12l3.03 3.03 2.4-1.38c.97-.56 1.54-1.52 1.54-2.53s-.57-1.97-1.54-2.53z" fill="#FBBC04"/>
+            <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z" fill="#34A853"/>
+            <path d="M4.24.1l10.64 11.9L5.24 23.9l-1-.86V.96z" fill="#EA4335"/>
+          </svg>
+          Get it on Google Play
         </a>
       </div>
-      <p class="cta-soon"><!-- Update with Play Store link when published --></p>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox(event)">&times; Close</button>
+      <img id="lightboxImg" src="" alt="Enlarged Visual" />
+    </div>
+  </div>
+
+  <!-- PAGE FOOTER -->
+  <footer class="page-footer">
     <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">
-          <img src="assets/images/app_logo.png" alt="AR Explorer" style="height:40px;width:auto;display:block;" />
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="nav-brand">
+            <img src="assets/images/app_logo.png" alt="AR Explorer Logo" />
+            <span class="brand-text">AR Explorer</span>
+          </div>
+          <p>
+            An interactive mobile learning platform demystifying Augmented Reality, SLAM, and spatial computing for developers worldwide.
+          </p>
         </div>
-        <div class="footer-copy">© 2026 The 356 Company. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="mailto:nejiyoussef081@gmail.com">Contact</a>
+
+        <div class="footer-col">
+          <h6>Platform</h6>
+          <ul class="footer-links">
+            <li><a href="#curriculum">9 Modules Curriculum</a></li>
+            <li><a href="#experience">App Screen Gallery</a></li>
+            <li><a href="#labs">SLAM Lab & Debugger</a></li>
+            <li><a href="#interview">Interview Simulator</a></li>
+            <li><a href="#certification">Certifications</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h6>Resources</h6>
+          <ul class="footer-links">
+            <li><a href="#infographics">Spatial Infographics</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener">Google Play Store</a></li>
+            <li><a href="https://github.com/Youssef0356/ar_explorer" target="_blank" rel="noopener">Source Code</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h6>Contact</h6>
+          <ul class="footer-links">
+            <li><a href="mailto:nejiyoussef081@gmail.com">nejiyoussef081@gmail.com</a></li>
+            <li style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">Developed by The 356 Company</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 The 356 Company. All rights reserved.</div>
+        <div style="color:var(--text-muted);">
+          Built with precision for Augmented Reality engineers.
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- SCRIPT LOGIC -->
   <script>
-    // ── CURSOR ──
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursor-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx}px,${my}px)`; });
-    function animRing() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(animRing); }
-    animRing();
+    // ── NAVBAR SCROLL EFFECT ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
 
-    // ── STARS ──
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 120; i++) {
-      const s = document.createElement('div');
-      s.className = 'star';
-      s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;opacity:${Math.random() * .5 + .1};--d:${2 + Math.random() * 4}s;--delay:${Math.random() * 4}s;`;
-      starsContainer.appendChild(s);
-    }
+    // ── MOBILE DRAWER NAVIGATION ──
+    const mobileToggle = document.getElementById('mobileToggle');
+    const drawerClose = document.getElementById('drawerClose');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerLinks = document.querySelectorAll('.drawer-link');
 
-
-    // ── SCREENSHOT GALLERY LOGIC ──
-    const screenshotsList = [
-      // Roadmap & Interview mapped first!
-      { src: 'Screenshot_2026-04-12-21-35-53-333_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Roadmap (02)
-      { src: 'Screenshot_2026-04-12-21-36-10-172_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (05)
-      { src: 'Screenshot_2026-04-12-21-36-13-192_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (06)
-      { src: 'Screenshot_2026-04-12-21-36-18-388_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (07)
-      { src: 'Screenshot_2026-04-12-21-36-25-375_com.the356company.arexplorer.jpg', cat: 'roadmap' }, // Interview (08)
-
-      // Games & Modules
-      { src: 'Screenshot_2026-04-12-21-35-57-227_com.the356company.arexplorer.jpg', cat: 'games' }, // Systems Eng (03)
-      { src: 'Screenshot_2026-04-12-21-36-59-275_com.the356company.arexplorer.jpg', cat: 'games' }, // Bug Debugger (12)
-      { src: 'Screenshot_2026-04-12-21-37-07-402_com.the356company.arexplorer.jpg', cat: 'games' }, // Pipeline (13)
-      { src: 'Screenshot_2026-04-12-21-37-19-999_com.the356company.arexplorer.jpg', cat: 'games' }, // XR Builder (14)
-      { src: 'Screenshot_2026-04-12-21-37-28-886_com.the356company.arexplorer.jpg', cat: 'games' }, // Scene Details (15)
-      { src: 'Screenshot_2026-04-12-21-37-32-628_com.the356company.arexplorer.jpg', cat: 'games' }, // Code Game (16)
-
-      // Analytics & Dashboard & Rewards
-      { src: 'Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Dashboard (01)
-      { src: 'Screenshot_2026-04-12-21-36-04-678_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Stats (04)
-      { src: 'Screenshot_2026-04-12-21-36-34-529_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Analytics Graph (09)
-      { src: 'Screenshot_2026-04-12-21-36-37-186_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Certificate (10)
-      { src: 'Screenshot_2026-04-12-21-36-45-986_com.the356company.arexplorer.jpg', cat: 'analytics' }, // Modules Grid (11)
-      { src: 'Screenshot_2026-04-12-21-37-39-549_com.the356company.arexplorer.jpg', cat: 'analytics' }  // Setting/Summary (17)
-    ];
-
-    const screenContainer = document.getElementById('gallery-screen');
-    const tabs = document.querySelectorAll('.gallery-tab');
-    let currentIndex = 0;
-    let filteredScreenshots = screenshotsList;
-    let intervalId = null;
-
-    // Preload and create img elements
-    const imgElements = screenshotsList.map((item, idx) => {
-      const img = document.createElement('img');
-      img.src = `assets/images/screenshots/${item.src}`;
-      img.dataset.cat = item.cat;
-      img.dataset.index = idx;
-      screenContainer.appendChild(img);
-      return img;
+    mobileToggle.addEventListener('click', () => {
+      mobileDrawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
     });
 
-    function showScreenshot(index) {
-      imgElements.forEach(img => img.classList.remove('active'));
-      if (filteredScreenshots.length > 0) {
-        const targetObj = filteredScreenshots[index];
-        const actualImg = imgElements.find(img => img.src.includes(targetObj.src));
-        if (actualImg) actualImg.classList.add('active');
+    function closeDrawer() {
+      mobileDrawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerLinks.forEach(link => link.addEventListener('click', closeDrawer));
+
+    // ── INTERACTIVE APP SCREEN SHOWCASE DATA & LOGIC ──
+    const showcaseTabs = {
+      dashboard: {
+        title: "Daily AR Concepts & Gamified XP",
+        desc: "Start every morning with our persistent Daily Keyword banner. Learn essential XR terms, build your daily streak, and level up your engineering rank from Novice to AR Master.",
+        img: "assets/images/screenshots/Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg",
+        checklist: [
+          "Persistent Daily Keyword banner with in-depth technical definitions",
+          "XP tracking, streaks, and global level progression",
+          "Quick access to modules, quizzes, and your career roadmap"
+        ]
+      },
+      curriculum: {
+        title: "Deep Technical Lessons & Content Reader",
+        desc: "Read rich, modular lessons formatted with code snippets, Ronald Azuma's 3 Pillars of AR, optical display comparisons (OST vs VST), and bookmarking for quick offline reference.",
+        img: "assets/images/screenshots/Screenshot_2026-04-12-21-36-10-172_com.the356company.arexplorer.jpg",
+        checklist: [
+          "Syntax-highlighted code blocks for Unity, C#, and OpenXR",
+          "Visual breakdown of optical and video see-through hardware",
+          "Key Takeaway bullets and interview focus highlights"
+        ]
+      },
+      labs: {
+        title: "AR Scene Debugger & Hands-On Labs",
+        desc: "Diagnose tracking glitches in real-time. Review practical scenarios like black camera feeds, anchor drifting, and configure Image Target behaviors directly in the XR Builder.",
+        img: "assets/images/screenshots/Screenshot_2026-04-12-21-37-28-886_com.the356company.arexplorer.jpg",
+        checklist: [
+          "Interactive AR Scene Debugger with scenario analysis",
+          "XR Builder simulator for target and coordinate alignment",
+          "Code challenges covering Vuforia, ARKit, and Google ARCore"
+        ]
+      },
+      interview: {
+        title: "Timed Interview Simulator & Analytics",
+        desc: "Prepare for high-stakes technical interviews with 50+ timed challenges. Track your performance with category-by-category accuracy radar and instant review explanations.",
+        img: "assets/images/screenshots/Screenshot_2026-04-12-21-36-34-529_com.the356company.arexplorer.jpg",
+        checklist: [
+          "Simulated interview timer with attempt penalty mechanics",
+          "Detailed category analytics (Tracking, Math, Optics, SDKs)",
+          "Immediate answer rationales and mathematical proofs"
+        ]
+      },
+      cert: {
+        title: "Tiered Certifications & Career Roadmap",
+        desc: "Unlock Bronze, Silver, Gold, and Platinum credentials as you demonstrate production readiness. Export high-resolution shareable certificates directly to PDF and image formats.",
+        img: "assets/images/screenshots/Screenshot_2026-04-12-21-36-25-375_com.the356company.arexplorer.jpg",
+        checklist: [
+          "Verified Platinum Tier certificate with unique verification badge",
+          "Step-by-step visual career roadmap from beginner to XR Lead",
+          "1-click export to PDF and high-res image for LinkedIn portfolios"
+        ]
       }
+    };
+
+    const tabKeys = Object.keys(showcaseTabs);
+    let currentTabIndex = 0;
+
+    const showcaseImg = document.getElementById('showcaseImg');
+    const showcaseTitle = document.getElementById('showcaseTitle');
+    const showcaseDesc = document.getElementById('showcaseDesc');
+    const showcaseChecklist = document.getElementById('showcaseChecklist');
+    const tabButtons = document.querySelectorAll('.gallery-tab-btn');
+
+    function updateShowcase(tabKey) {
+      const data = showcaseTabs[tabKey];
+      if (!data) return;
+
+      showcaseImg.style.opacity = '0';
+      showcaseImg.style.transform = 'scale(0.98)';
+
+      setTimeout(() => {
+        showcaseImg.src = data.img;
+        showcaseTitle.textContent = data.title;
+        showcaseDesc.textContent = data.desc;
+
+        showcaseChecklist.innerHTML = data.checklist.map(item => `
+          <li class="checklist-item">
+            <span class="check-icon">✓</span>
+            <span>${item}</span>
+          </li>
+        `).join('');
+
+        showcaseImg.style.opacity = '1';
+        showcaseImg.style.transform = 'scale(1)';
+      }, 200);
+
+      tabButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabKey);
+      });
+
+      currentTabIndex = tabKeys.indexOf(tabKey);
     }
 
-    function nextScreenshot() {
-      if (filteredScreenshots.length === 0) return;
-      currentIndex = (currentIndex + 1) % filteredScreenshots.length;
-      showScreenshot(currentIndex);
-    }
-
-    function startAutoCycle() {
-      stopAutoCycle();
-      intervalId = setInterval(nextScreenshot, 3000);
-    }
-    function stopAutoCycle() {
-      if (intervalId) clearInterval(intervalId);
-    }
-
-    // Interactivity for tabs
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const cat = tab.dataset.cat;
-        if (cat === 'all') {
-          filteredScreenshots = screenshotsList;
-        } else {
-          filteredScreenshots = screenshotsList.filter(s => s.cat === cat);
-        }
-
-        currentIndex = 0; // Reset index when switching categories
-        showScreenshot(currentIndex);
-        startAutoCycle(); // Restart cycle with new category
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        updateShowcase(btn.dataset.tab);
       });
     });
 
-    // Initialize
-    showScreenshot(0);
-    startAutoCycle();
+    document.getElementById('prevScreenBtn').addEventListener('click', () => {
+      currentTabIndex = (currentTabIndex - 1 + tabKeys.length) % tabKeys.length;
+      updateShowcase(tabKeys[currentTabIndex]);
+    });
 
-    // ── SCROLL REVEAL ──
-    const reveals = document.querySelectorAll('.reveal');
-    const ro = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    reveals.forEach(el => ro.observe(el));
+    document.getElementById('nextScreenBtn').addEventListener('click', () => {
+      currentTabIndex = (currentTabIndex + 1) % tabKeys.length;
+      updateShowcase(tabKeys[currentTabIndex]);
+    });
 
-    // ── IMAGE SEQUENCE SCROLL ──
-    const canvas = document.getElementById('sequence-canvas');
-    const ctx = canvas.getContext('2d');
-    const seqSection = document.getElementById('sequence-section');
-    const frameCounter = document.getElementById('frame-counter');
-    const TOTAL_FRAMES = 367;
+    // ── LIGHTBOX MODAL LOGIC ──
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
 
-    // Resize canvas for HD/Retina displays
-    function resizeCanvas() {
-      const dpr = window.devicePixelRatio || 1;
-      const targetW = window.innerWidth;
-      const targetH = window.innerHeight;
-
-      canvas.width = targetW * dpr;
-      canvas.height = targetH * dpr;
-      canvas.style.width = targetW + 'px';
-      canvas.style.height = targetH + 'px';
- 
-      // Enable high-quality smoothing
-      ctx.scale(dpr, dpr);
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || 'Visual Preview';
+      lightboxModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
-    // Preload all frames
-    const frames = [];
-    let framesLoaded = 0;
-    let framesReady = false;
-
-    function preloadFrames() {
-      for (let i = 0; i < TOTAL_FRAMES; i++) {
-        const img = new Image();
-        const num = String(i).padStart(5, '0');
-        img.src = `frames/Videoframes/AR_EXPLORER_${num}.jpg`;
-        const checkReady = () => {
-          framesLoaded++;
-          // Start drawing as soon as we have some frames (at least the first one)
-          if (framesLoaded > 0 && !framesReady) {
-            framesReady = true;
-            drawFrame(0);
-          }
-          if (framesLoaded === TOTAL_FRAMES) {
-            const overlay = document.querySelector('.sequence-overlay');
-            const purpleGlow = document.querySelector('.sequence-purple-glow');
-            if (overlay) {
-              overlay.style.background = '';
-              overlay.style.backgroundSize = '';
-              overlay.style.animation = '';
-            }
-            if (purpleGlow) {
-              purpleGlow.style.opacity = '0.6';
-            }
-          }
-        };
-        img.onload = checkReady;
-        img.onerror = checkReady;
-        frames[i] = img;
+    function closeLightbox(e) {
+      if (e.target === lightboxModal || e.target.classList.contains('lightbox-close')) {
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
       }
     }
-    preloadFrames();
 
-    // Draw frame to canvas (cover fit)
-    function drawFrame(index) {
-      const img = frames[Math.max(0, Math.min(index, TOTAL_FRAMES - 1))];
-      if (!img || !img.complete || !img.naturalWidth) return;
-      const cw = canvas.width, ch = canvas.height;
-      const ir = img.naturalWidth / img.naturalHeight;
-      const cr = cw / ch;
-      let dw, dh, dx, dy;
-      if (ir > cr) { dh = ch; dw = ch * ir; dx = (cw - dw) / 2; dy = 0; }
-      else { dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2; }
-      ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, dx, dy, dw, dh);
+    // ── MOCK QUIZ INTERACTION IN INTERVIEW SECTION ──
+    function selectMockOption(element, isCorrect) {
+      const opts = document.querySelectorAll('.quiz-sim-opt');
+      opts.forEach(o => o.classList.remove('correct'));
+      element.classList.add('correct');
     }
-
-    // Sequence text triggers (frame ranges)
-    const textTriggers = [
-      { id: 'seq-text-0', start: 0, end: 91 },
-      { id: 'seq-text-1', start: 92, end: 183 },
-      { id: 'seq-text-2', start: 184, end: 275 },
-      { id: 'seq-text-3', start: 276, end: 366 },
-    ];
-
-    let currentFrame = -1;
-    let targetFrame = 0;
-    let lerpedFrame = 0;
-
-    function onScroll() {
-      const rect = seqSection.getBoundingClientRect();
-      const sectionHeight = seqSection.offsetHeight - window.innerHeight;
-      const scrolled = -rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
-      targetFrame = progress * (TOTAL_FRAMES - 1);
-    }
-
-    function updateSequence() {
-      // Use "Lerp" (Linear Interpolation) for buttery smoothness
-      // 0.1 is the 'softness' factor. Lower = smoother/slower.
-      lerpedFrame += (targetFrame - lerpedFrame) * 0.1;
-      const frameIndex = Math.round(lerpedFrame);
-
-      if (frameIndex !== currentFrame) {
-        currentFrame = frameIndex;
-        if (framesReady) drawFrame(frameIndex);
-        frameCounter.textContent = `${String(frameIndex + 1).padStart(3, '0')} / ${TOTAL_FRAMES}`;
-
-        // Show/hide text overlays
-        textTriggers.forEach(t => {
-          const el = document.getElementById(t.id);
-          if (frameIndex >= t.start && frameIndex <= t.end) {
-            el.classList.add('visible');
-          } else {
-            el.classList.remove('visible');
-          }
-        });
-      }
-      requestAnimationFrame(updateSequence);
-    }
-    updateSequence();
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // If no frames loaded (placeholder mode), draw a dark gradient
-    setTimeout(() => {
-      if (!framesReady) {
-        // Brand-aligned fallback aesthetic instead of blank black or missing sequence
-
-        // We add an animated CSS background to the parent to make it beautiful
-        const section = document.getElementById('sequence-section');
-        const overlay = document.querySelector('.sequence-overlay');
-        if (overlay) {
-          overlay.style.background = 'linear-gradient(135deg, #050c1a 0%, #0a1128 30%, #160a28 70%, #1a0a1a 100%)';
-          overlay.style.backgroundSize = '400% 400%';
-          overlay.style.animation = 'pulseGradient 8s ease infinite alternate';
-        }
-
-        // Insert CSS Keyframes
-        const style = document.createElement('style');
-        style.innerHTML = `
-      @keyframes pulseGradient { 
-        0% { background-position: 0% 50%; box-shadow: inset 0 0 100px rgba(0,229,255,0.2); }
-        50% { background-position: 100% 50%; box-shadow: inset 0 0 100px rgba(168,85,247,0.2); }
-        100% { background-position: 0% 50%; box-shadow: inset 0 0 100px rgba(255,60,172,0.2); }
-      }
-    `;
-        document.head.appendChild(style);
-
-        // Dark fill on canvas
-        ctx.fillStyle = '#050c1a';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
-    }, 2000);
   </script>
 </body>
 
