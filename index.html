@@ -1129,15 +1129,29 @@
     }
 
     .lab-code-preview {
-      background: #090D1A;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: #080C18;
+      border: 1px solid rgba(0, 212, 170, 0.2);
       border-radius: 12px;
       padding: 1rem 1.25rem;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: #80CBC4;
-      line-height: 1.5;
+      font-size: 0.82rem;
+      color: #94E2D5;
+      line-height: 1.6;
       overflow-x: auto;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .lab-code-preview::before {
+      content: "●  ●  ●   SANDBOX RUNTIME";
+      display: block;
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      font-family: var(--font-mono);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     /* ── INTERVIEW PREP & QUIZ ANALYTICS ── */
@@ -1782,15 +1796,15 @@
   <div class="mobile-drawer" id="mobileDrawer">
     <button class="mobile-drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
     <a href="#curriculum" class="drawer-link">Curriculum (9 Modules)</a>
-    <a href="#experience" class="drawer-link">App Experience</a>
-    <a href="#labs" class="drawer-link">Interactive Labs & Games</a>
-    <a href="#interview" class="drawer-link">Interview Simulator</a>
-    <a href="#certification" class="drawer-link">Certificates</a>
-    <a href="#infographics" class="drawer-link">Infographics</a>
+    <a href="#experience" class="drawer-link">Runtime Architecture</a>
+    <a href="#labs" class="drawer-link">Simulators & Diagnostics</a>
+    <a href="#interview" class="drawer-link">Interview Matrix</a>
+    <a href="#certification" class="drawer-link">Engineering Credentials</a>
+    <a href="#infographics" class="drawer-link">Spatial Infographics</a>
     <a href="#faq" class="drawer-link">FAQ</a>
     <a href="privacy.html" class="drawer-link">Privacy Policy</a>
     <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="btn-nav-download" style="display:inline-flex; margin-top:1rem;">
-      Get on Google Play ↗
+      Install via Google Play ↗
     </a>
   </div>
 
@@ -1807,13 +1821,12 @@
 
       <ul class="nav-menu">
         <li><a href="#curriculum" class="nav-link">Curriculum</a></li>
-        <li><a href="#experience" class="nav-link">App Gallery</a></li>
-        <li><a href="#labs" class="nav-link">Labs</a></li>
-        <li><a href="#interview" class="nav-link">Interview</a></li>
-        <li><a href="#certification" class="nav-link">Certificates</a></li>
+        <li><a href="#experience" class="nav-link">Architecture</a></li>
+        <li><a href="#labs" class="nav-link">Simulators & Labs</a></li>
+        <li><a href="#interview" class="nav-link">Interview Matrix</a></li>
+        <li><a href="#certification" class="nav-link">Credentials</a></li>
         <li><a href="#infographics" class="nav-link">Infographics</a></li>
         <li><a href="#faq" class="nav-link">FAQ</a></li>
-        <li><a href="privacy.html" class="nav-link">Privacy</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -1823,7 +1836,7 @@
             <path d="M18.16 9.59l-2.4-1.38L12.73 12l3.03 3.03 2.4-1.38c.97-.56 1.54-1.52 1.54-2.53s-.57-1.97-1.54-2.53z" opacity=".7"/>
             <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z" opacity=".5"/>
           </svg>
-          Get on Google Play
+          Install via Google Play
         </a>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
           <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1843,15 +1856,14 @@
       <div class="hero-content">
         <div class="pill-eyebrow">
           <span class="pulse-dot"></span>
-          Now Available on Android • 100% Offline & Free
+          SPATIAL COMPUTING & XR SYSTEMS ARCHITECTURE • AIR-GAPPED RUNTIME
         </div>
         <h1 class="hero-title">
           Master Augmented Reality. <br />
-          <span class="gradient-text">From SLAM to OpenXR.</span>
+          <span class="gradient-text">From Spatial Math to Production OpenXR.</span>
         </h1>
         <p class="hero-description">
-          The ultimate interactive mobile learning companion for XR engineers.
-          Master spatial coordinates, diagnose 3D tracking bugs, crack real-world technical interviews, and earn verified industry certificates.
+          The premier offline engineering platform for XR developers, robotics engineers, and spatial computing architects. Master 6-DoF Visual-Inertial Odometry, diagnose real-time tracking pipelines, conquer FAANG-grade technical interviews, and earn verifiable industry credentials.
         </p>
 
         <div class="hero-buttons">
@@ -1861,25 +1873,25 @@
               <path d="M18.16 9.59l-2.4-1.38L12.73 12l3.03 3.03 2.4-1.38c.97-.56 1.54-1.52 1.54-2.53s-.57-1.97-1.54-2.53z"/>
               <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z"/>
             </svg>
-            Download for Android
+            Install via Google Play
           </a>
           <a href="#curriculum" class="btn-cta-secondary">
-            Explore 9 Modules →
+            Explore 9 Engineering Modules →
           </a>
         </div>
 
         <div class="hero-highlights">
           <div class="highlight-item">
             <svg class="highlight-icon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span>Fully Offline Capable</span>
+            <span>Air-Gapped Local Architecture</span>
           </div>
           <div class="highlight-item">
             <svg class="highlight-icon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span>No Account Required</span>
+            <span>Zero Telemetry & Private</span>
           </div>
           <div class="highlight-item">
             <svg class="highlight-icon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span>Verified Credentials</span>
+            <span>Deterministic Simulators</span>
           </div>
         </div>
       </div>
@@ -1893,8 +1905,8 @@
           <div class="floating-callout badge-top">
             <div class="callout-icon" style="background: rgba(0, 212, 170, 0.15); color: var(--accent-cyan);">⚡</div>
             <div>
-              <div class="callout-title">AR Master • 1730 XP</div>
-              <div class="callout-sub">Daily Concept Streak: 7 Days</div>
+              <div class="callout-title">AR Architecture • Level 04</div>
+              <div class="callout-sub">1,060 XP • 7-Day Precision Streak</div>
             </div>
           </div>
 
@@ -1902,8 +1914,8 @@
           <div class="floating-callout badge-bottom">
             <div class="callout-icon" style="background: rgba(187, 134, 252, 0.15); color: var(--accent-purple);">🧭</div>
             <div>
-              <div class="callout-title">SLAM Lab & Debugger</div>
-              <div class="callout-sub">60 FPS Realtime Tracking</div>
+              <div class="callout-title">Visual-Inertial Odometry</div>
+              <div class="callout-sub">60 FPS Real-Time SLAM Pipeline</div>
             </div>
           </div>
 
@@ -1912,7 +1924,7 @@
               <div class="notch-camera"></div>
             </div>
             <div class="phone-screen">
-              <img src="assets/images/screenshots/Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg" alt="AR Explorer Home Screen" />
+              <img src="assets/images/screenshots/Screenshot_2026-11-09-10-54-26-070_com.the356company.arexplorer.jpg" alt="AR Explorer Home Screen" />
             </div>
           </div>
         </div>
@@ -1926,19 +1938,19 @@
       <div class="metrics-grid">
         <div class="metric-card">
           <div class="metric-value highlight-cyan">9</div>
-          <div class="metric-label">Comprehensive Modules</div>
+          <div class="metric-label">Engineering Modules</div>
         </div>
         <div class="metric-card">
           <div class="metric-value">50+</div>
-          <div class="metric-label">Interview Challenges</div>
+          <div class="metric-label">XR Systems Challenges</div>
         </div>
         <div class="metric-card">
           <div class="metric-value">4</div>
-          <div class="metric-label">Interactive Lab Games</div>
+          <div class="metric-label">Hardware Simulators & Sandboxes</div>
         </div>
         <div class="metric-card">
           <div class="metric-value highlight-cyan">100%</div>
-          <div class="metric-label">Offline & Private</div>
+          <div class="metric-label">Air-Gapped & Sovereign Data</div>
         </div>
       </div>
     </div>
@@ -1948,9 +1960,11 @@
   <section id="curriculum">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">Structured Learning Path</div>
-        <h2 class="section-title">The Complete <span class="accent">AR & Spatial</span> Curriculum</h2>
+        <div class="section-tag">Standardized Curriculum</div>
+        <h2 class="section-title">Comprehensive <span class="accent">Spatial Computing</span> Curriculum</h2>
         <p class="section-desc">
+          Standardized against Khronos Group specifications, academic computer vision literature, and technical interview benchmarks from Meta Reality Labs, Apple Vision Products, and Niantic.
+        </p>
           Engineered around industry standards, academic foundations, and real technical interviews at top spatial computing firms.
         </p>
       </div>
@@ -2116,18 +2130,18 @@
   <section id="experience">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">Interactive Preview</div>
-        <h2 class="section-title">Designed for <span class="accent">Deep Engineering Focus</span></h2>
-        <p class="section-desc">Explore the actual screens from AR Explorer. Switch categories below to inspect real app features.</p>
+        <div class="section-tag">Production Runtime</div>
+        <h2 class="section-title">Engineered for <span class="accent">Deep Technical Rigor</span></h2>
+        <p class="section-desc">Inspect real telemetry, structured lesson readers, and diagnostic sandboxes directly from the production Android client.</p>
       </div>
 
       <!-- Category Filter Tabs -->
       <div class="gallery-tabs-nav" id="galleryTabs">
-        <button class="gallery-tab-btn active" data-tab="dashboard">📱 Home & Daily Concepts</button>
-        <button class="gallery-tab-btn" data-tab="curriculum">📚 Rich Lessons & Reader</button>
-        <button class="gallery-tab-btn" data-tab="labs">🛠️ Interactive Labs & Debugger</button>
-        <button class="gallery-tab-btn" data-tab="interview">🎯 Interview Prep & Quizzes</button>
-        <button class="gallery-tab-btn" data-tab="cert">🏆 Certificates & Roadmap</button>
+        <button class="gallery-tab-btn active" data-tab="dashboard">📱 Dashboard & Telemetry</button>
+        <button class="gallery-tab-btn" data-tab="curriculum">📚 Technical Curriculum</button>
+        <button class="gallery-tab-btn" data-tab="labs">🛠️ SLAM & Diagnostics</button>
+        <button class="gallery-tab-btn" data-tab="interview">🎯 Interview Matrix</button>
+        <button class="gallery-tab-btn" data-tab="cert">🏆 Accredited Credentials</button>
       </div>
 
       <!-- Tab Content Showcase Box -->
@@ -2137,14 +2151,14 @@
             <div class="phone-notch-pill">
               <div class="notch-camera"></div>
             </div>
-            <img id="showcaseImg" class="showcase-screen-img" src="assets/images/screenshots/Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg" alt="AR Explorer Feature Screenshot" />
+            <img id="showcaseImg" class="showcase-screen-img" src="assets/images/screenshots/Screenshot_2026-11-09-10-54-26-070_com.the356company.arexplorer.jpg" alt="AR Explorer Feature Screenshot" />
           </div>
         </div>
 
         <div class="showcase-info">
-          <h3 id="showcaseTitle">Daily AR Concepts & Gamified XP</h3>
+          <h3 id="showcaseTitle">Daily Technical Lexicon & Engineering Progression</h3>
           <p id="showcaseDesc">
-            Start every morning with our persistent Daily Keyword banner. Learn essential XR terms, build your daily streak, and level up your engineering rank from Novice to AR Master.
+            Build muscle memory with on-device daily keyword breakdowns, streak persistence, and real-time XP telemetry tracking your trajectory from XR Initiate to Principal Architect.
           </p>
 
           <ul class="feature-checklist" id="showcaseChecklist">
@@ -2175,32 +2189,32 @@
   <section id="labs">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">Learn By Doing</div>
-        <h2 class="section-title">Built-In <span class="accent">Interactive Labs</span> & Games</h2>
+        <div class="section-tag">Hardware-Level Sandboxes</div>
+        <h2 class="section-title">Real-Time <span class="accent">Simulation Sandboxes</span> & Diagnostics</h2>
         <p class="section-desc">
-          Stop passively reading theory. AR Explorer features interactive simulators and gamified engineering puzzles that test your spatial intuition.
+          Bridge theoretical mathematics with real-world spatial execution. Validate sensor fusion algorithms, inspect camera frame buffers, and simulate 60 FPS mobile constraints inside dedicated interactive sandboxes.
         </p>
       </div>
 
       <div class="labs-grid">
-        <!-- Lab 1: AR Scene Debugger -->
+        <!-- Lab 1: AR Scene Diagnostics -->
         <div class="lab-card">
           <div class="lab-header">
             <div class="lab-icon-box">
               <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
             </div>
             <div class="lab-title-group">
-              <span class="lab-tag">Interactive Simulation</span>
-              <h4>AR Scene Debugger</h4>
+              <span class="lab-tag">Pipeline Inspection</span>
+              <h4>AR Scene Diagnostics & Triage</h4>
             </div>
           </div>
           <p class="lab-desc">
-            You just launched your AR experience and got a black camera feed, anchor drift, or lighting mismatch. Step into the debugger to diagnose the camera pipeline, permissions, and depth buffers.
+            Diagnose common spatial tracking failures in real-time: black camera feeds, sensor permission deadlocks, depth buffer mismatches, and severe anchor drift under feature-sparse environments.
           </p>
           <div class="lab-code-preview">
-            <code>// Scenario: Camera Feed Black Screen<br/>
+            <code>// Scenario: Camera Feed Black Screen & Pipeline Stalls<br/>
 if (!ARSession.isSupported) fallback2D();<br/>
-session.requestCameraPermission().then(initPose);</code>
+session.requestCameraPermission().then(initPoseBuffer);</code>
           </div>
         </div>
 
@@ -2211,15 +2225,15 @@ session.requestCameraPermission().then(initPose);</code>
               <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
             </div>
             <div class="lab-title-group">
-              <span class="lab-tag" style="color: var(--accent-blue);">Spatial Odometry</span>
-              <h4>SLAM Lab Simulator</h4>
+              <span class="lab-tag" style="color: var(--accent-blue);">Sensor Fusion</span>
+              <h4>Visual-Inertial Odometry & SLAM Simulator</h4>
             </div>
           </div>
           <p class="lab-desc">
-            Visualize the point-cloud generation, feature extraction, and loop-closure algorithms. Understand how IMU accelerometer data fuses with optical feature vectors to eliminate drift.
+            Visualize FAST corner extraction, optical flow vectoring, and Kalman-filtered IMU dead-reckoning. Discover how keyframe triangulation and loop closure enforce drift-free tracking.
           </p>
           <div class="lab-code-preview">
-            <code>// Visual Inertial Fusion Dock<br/>
+            <code>// Extended Kalman Filter (EKF) Sensor Fusion<br/>
 Eigen::Matrix4d pose = EKF.update(opticalFlow, imuDelta);<br/>
 map.triangulateKeyframePoints(pose);</code>
           </div>
@@ -2232,16 +2246,16 @@ map.triangulateKeyframePoints(pose);</code>
               <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
             <div class="lab-title-group">
-              <span class="lab-tag" style="color: var(--accent-purple);">Hands-On Programming</span>
-              <h4>Code Challenges (Unity, C#, ARKit)</h4>
+              <span class="lab-tag" style="color: var(--accent-purple);">Hardware Abstraction</span>
+              <h4>Production SDK Implementation (Unity, OpenXR, C#)</h4>
             </div>
           </div>
           <p class="lab-desc">
-            Solve "Fill-in-the-gap" coding exercises. Wire up Vuforia DefaultObserverEventHandlers, ARKit ARWorldTrackingConfigurations, and ARCore Cloud Anchor resolution directly in the app.
+            Implement production code directly on mobile: bind Vuforia DefaultObserverEventHandlers, configure ARKit ARWorldTrackingConfigurations, and resolve Google Cloud Anchors asynchronously.
           </p>
           <div class="lab-code-preview">
             <code>public class MarkerHandler : DefaultObserverEventHandler {<br/>
-&nbsp;&nbsp;protected override void OnTrackingFound() { Show3D(); }<br/>
+&nbsp;&nbsp;protected override void OnTrackingFound() { BindPoseAnchor(); }<br/>
 }</code>
           </div>
         </div>
@@ -2253,17 +2267,17 @@ map.triangulateKeyframePoints(pose);</code>
               <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
             </div>
             <div class="lab-title-group">
-              <span class="lab-tag" style="color: var(--accent-amber);">Spatial Architect</span>
-              <h4>XR Builder & Pipeline Sandbox</h4>
+              <span class="lab-tag" style="color: var(--accent-amber);">Spatial Kinematics</span>
+              <h4>Coordinate Transformer & Raycasting Sandbox</h4>
             </div>
           </div>
           <p class="lab-desc">
-            Assemble virtual targets, adjust 3D coordinate pivots, and fine-tune raycast interaction thresholds. Learn spatial UX constraints inside an interactive sandboxed environment.
+            Calculate raycast hit-test planes, calculate camera-relative Euler-to-Quaternion transformations, and tune spatial interaction thresholds within strict 16.6ms frame budgets.
           </p>
           <div class="lab-code-preview">
             <code>Vector3 targetAnchor = raycastHit.pose.position;<br/>
 Quaternion orientation = Quaternion.LookRotation(cameraDir);<br/>
-Instantiate(prefab, targetAnchor, orientation);</code>
+Instantiate(spatialPrefab, targetAnchor, orientation);</code>
           </div>
         </div>
       </div>
@@ -2276,38 +2290,38 @@ Instantiate(prefab, targetAnchor, orientation);</code>
       <div class="interview-split">
         <div class="interview-text-col">
           <div class="section-tag" style="color: var(--accent-amber); background: rgba(255, 202, 40, 0.08); border-color: rgba(255, 202, 40, 0.25);">
-            Career Readiness
+            Technical Competency Matrix
           </div>
           <h2 class="section-title">
-            Crack Your Next <br />
-            <span class="accent">XR Technical Interview</span>
+            Benchmark Against <br />
+            <span class="accent">XR Engineering Standards</span>
           </h2>
           <p class="section-desc" style="margin-bottom: 2rem;">
-            Over 50 rigorously curated interview challenges with timed simulations, hints, attempt limits, and detailed breakdowns covering graphics pipelines, coordinate conversions, and tracking algorithms.
+            Over 50 rigorously engineered assessment scenarios covering real-time computer vision, epipolar geometry, quaternion kinematics, and mobile frame-budget constraints.
           </p>
 
           <div style="display:flex; flex-direction:column; gap:1.25rem;">
             <div style="display:flex; gap:1rem; align-items:flex-start;">
               <div class="check-icon" style="background: rgba(255, 202, 40, 0.15); color: var(--accent-amber);">✓</div>
               <div>
-                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Timed Mock Interviews</h5>
-                <p style="color:var(--text-secondary); font-size:0.88rem;">Realistic 5-minute timers per question category with attempt penalty systems.</p>
+                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Timed Assessment Engine</h5>
+                <p style="color:var(--text-secondary); font-size:0.88rem;">5-minute challenge evaluation windows with latency penalty tracking and proof-of-work validation.</p>
               </div>
             </div>
 
             <div style="display:flex; gap:1rem; align-items:flex-start;">
               <div class="check-icon" style="background: rgba(255, 202, 40, 0.15); color: var(--accent-amber);">✓</div>
               <div>
-                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Advanced Accuracy Analytics</h5>
-                <p style="color:var(--text-secondary); font-size:0.88rem;">Identify weak areas across tracking, optics, shaders, and cross-platform APIs.</p>
+                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Multi-Domain Accuracy Radar</h5>
+                <p style="color:var(--text-secondary); font-size:0.88rem;">Granular benchmarking across SLAM, sensor fusion, spatial audio, and cross-platform OpenXR.</p>
               </div>
             </div>
 
             <div style="display:flex; gap:1rem; align-items:flex-start;">
               <div class="check-icon" style="background: rgba(255, 202, 40, 0.15); color: var(--accent-amber);">✓</div>
               <div>
-                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Spaced Repetition Flashcards</h5>
-                <p style="color:var(--text-secondary); font-size:0.88rem;">Quick-study flashcard decks for essential AR terminology and equations.</p>
+                <h5 style="color:#fff; font-family:var(--font-heading); font-size:1rem; margin-bottom:0.25rem;">Algorithmic Proofs & Spaced Repetition</h5>
+                <p style="color:var(--text-secondary); font-size:0.88rem;">In-depth mathematical rationales including Quaternion SLERP derivations and transform matrices.</p>
               </div>
             </div>
           </div>
@@ -2358,10 +2372,10 @@ Instantiate(prefab, targetAnchor, orientation);</code>
   <section id="certification">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">Proof of Skill</div>
-        <h2 class="section-title">Verified <span class="accent">Industry Certifications</span></h2>
+        <div class="section-tag">Verifiable Accreditations</div>
+        <h2 class="section-title">Tiered Spatial Computing <span class="accent">Engineering Credentials</span></h2>
         <p class="section-desc">
-          Validate your mastery. As you complete modules and conquer interview challenges, unlock tiered credentials ready to export to PDF and share on LinkedIn.
+          Validated proof of technical competence. As you complete modules and conquer interview challenges, unlock cryptographically verifiable credentials exportable as high-resolution vectors and PDFs for engineering portfolios.
         </p>
       </div>
 
@@ -2492,10 +2506,10 @@ Instantiate(prefab, targetAnchor, orientation);</code>
     <div class="container">
       <div class="privacy-box">
         <div>
-          <div class="section-tag">Architected for Freedom</div>
-          <h2 class="section-title">100% Offline. <br /><span class="accent">Zero Data Collected.</span></h2>
+          <div class="section-tag">Sovereign Architecture</div>
+          <h2 class="section-title">Air-Gapped Execution. <br /><span class="accent">Zero External Dependencies.</span></h2>
           <p class="section-desc">
-            Your education should never be gated behind an internet connection or tracking pixels. AR Explorer is completely self-contained.
+            Your engineering training environment should never be gated behind an internet connection, third-party authentication, or telemetric data harvesting. AR Explorer is completely self-contained.
           </p>
         </div>
 
@@ -2505,8 +2519,8 @@ Instantiate(prefab, targetAnchor, orientation);</code>
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 4.243a9 9 0 01-12.728 0m0 0l2.829-2.829m-2.829 2.829L3 21m2.828-12.536a5 5 0 017.072 0m0 0l2.829-2.829"/></svg>
             </div>
             <div class="priv-text">
-              <h5>Full Offline Capability</h5>
-              <p>Learn on flights, subways, or off the grid. All 9 modules, quizzes, labs, and infographics are bundled on-device.</p>
+              <h5>Deterministic Local Runtime</h5>
+              <p>Deploy anywhere: cleanrooms, aircraft, transit, or remote facilities. All 9 modules, code exercises, and simulators execute purely on-device.</p>
             </div>
           </li>
 
@@ -2515,8 +2529,8 @@ Instantiate(prefab, targetAnchor, orientation);</code>
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
             </div>
             <div class="priv-text">
-              <h5>No Account or Sign-In Needed</h5>
-              <p>No passwords to remember, no forced email subscriptions. Open the app and begin studying immediately.</p>
+              <h5>Zero Account Overhead</h5>
+              <p>Zero credentials to manage, no telemetry collection, and no subscription paywalls. Instant access to full engineering documentation.</p>
             </div>
           </li>
 
@@ -2525,8 +2539,8 @@ Instantiate(prefab, targetAnchor, orientation);</code>
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <div class="priv-text">
-              <h5>Privacy-First Design</h5>
-              <p>Your notes, bookmarks, quiz scores, and XP progress remain stored strictly in local device memory.</p>
+              <h5>Data Sovereignty</h5>
+              <p>Your technical notes, benchmarks, quiz scores, and progression telemetry remain strictly within on-device encrypted storage.</p>
             </div>
           </li>
         </ul>
@@ -2620,11 +2634,11 @@ Instantiate(prefab, targetAnchor, orientation);</code>
     <div class="container">
       <div class="download-card-big">
         <div class="section-tag" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15); color:#fff;">
-          Ready to become an XR Engineer?
+          Production Client Available
         </div>
-        <h2 class="section-title">Start Your Augmented Reality <br /><span class="gradient-text">Mastery Today</span></h2>
+        <h2 class="section-title">Deploy AR Explorer to <br /><span class="gradient-text">Your Hardware Today</span></h2>
         <p>
-          Download AR Explorer for free on Android. No subscriptions required to start learning the fundamental pillars of spatial computing.
+          Install the complete spatial computing curriculum on Google Play. Zero subscriptions or paywalls required to master the foundational pillars of augmented reality.
         </p>
 
         <a href="https://play.google.com/store/apps/details?id=com.the356company.arexplorer" target="_blank" rel="noopener" class="playstore-button-large">
@@ -2634,7 +2648,7 @@ Instantiate(prefab, targetAnchor, orientation);</code>
             <path d="M4.24 23.9l10.64-11.9L5.24.76 4.24.1v23.8z" fill="#34A853"/>
             <path d="M4.24.1l10.64 11.9L5.24 23.9l-1-.86V.96z" fill="#EA4335"/>
           </svg>
-          Get it on Google Play
+          Install on Google Play
         </a>
       </div>
     </div>
@@ -2735,53 +2749,53 @@ Instantiate(prefab, targetAnchor, orientation);</code>
     // ── INTERACTIVE APP SCREEN SHOWCASE DATA & LOGIC ──
     const showcaseTabs = {
       dashboard: {
-        title: "Daily AR Concepts & Gamified XP",
-        desc: "Start every morning with our persistent Daily Keyword banner. Learn essential XR terms, build your daily streak, and level up your engineering rank from Novice to AR Master.",
-        img: "assets/images/screenshots/Screenshot_2026-04-12-21-35-46-612_com.the356company.arexplorer.jpg",
+        title: "Daily Technical Lexicon & Engineering Progression",
+        desc: "Build muscle memory with on-device daily keyword breakdowns, streak persistence, and real-time XP telemetry tracking your trajectory from XR Initiate to Principal Architect.",
+        img: "assets/images/screenshots/Screenshot_2026-11-09-10-54-26-070_com.the356company.arexplorer.jpg",
         checklist: [
-          "Persistent Daily Keyword banner with in-depth technical definitions",
-          "XP tracking, streaks, and global level progression",
-          "Quick access to modules, quizzes, and your career roadmap"
+          "Curated spatial lexicon cards with formal mathematical proofs",
+          "Continuous XP metrics, streak logs, and progression analytics",
+          "Direct jump links into modules, diagnostic sandboxes, and roadmap milestones"
         ]
       },
       curriculum: {
-        title: "Deep Technical Lessons & Content Reader",
-        desc: "Read rich, modular lessons formatted with code snippets, Ronald Azuma's 3 Pillars of AR, optical display comparisons (OST vs VST), and bookmarking for quick offline reference.",
-        img: "assets/images/screenshots/Screenshot_2026-04-12-21-36-10-172_com.the356company.arexplorer.jpg",
+        title: "In-Depth Architectural Modules & Reader",
+        desc: "Study formal specifications including Ronald Azuma's 3 Pillars, Optical vs Video See-Through display physics, OpenXR runtime lifecycles, and coordinate transformations.",
+        img: "assets/images/screenshots/Screenshot_2026-11-09-10-56-10-531_com.the356company.arexplorer.jpg",
         checklist: [
-          "Syntax-highlighted code blocks for Unity, C#, and OpenXR",
-          "Visual breakdown of optical and video see-through hardware",
-          "Key Takeaway bullets and interview focus highlights"
+          "Syntax-highlighted code blocks for Unity AR Foundation, C#, and OpenXR",
+          "Diagrammatic breakdowns of OST vs VST optics and sensor latency",
+          "Executive summaries and interview focus callouts for every topic"
         ]
       },
       labs: {
-        title: "AR Scene Debugger & Hands-On Labs",
-        desc: "Diagnose tracking glitches in real-time. Review practical scenarios like black camera feeds, anchor drifting, and configure Image Target behaviors directly in the XR Builder.",
-        img: "assets/images/screenshots/Screenshot_2026-04-12-21-37-28-886_com.the356company.arexplorer.jpg",
+        title: "Interactive SLAM Simulator & Scene Diagnostics",
+        desc: "Step inside live diagnostic sandboxes to pinpoint camera feed stalls, rectify anchor drift under low-texture conditions, and visualize feature-point extraction in real time.",
+        img: "assets/images/screenshots/Screenshot_2026-11-09-10-57-30-369_com.the356company.arexplorer.jpg",
         checklist: [
-          "Interactive AR Scene Debugger with scenario analysis",
-          "XR Builder simulator for target and coordinate alignment",
-          "Code challenges covering Vuforia, ARKit, and Google ARCore"
+          "Real-time SLAM Simulator with FAST corner detection and point-cloud metrics",
+          "AR Scene Debugger isolating camera permissions, depth buffers, and lighting",
+          "Interactive code execution challenges for Vuforia, ARKit, and ARCore"
         ]
       },
       interview: {
-        title: "Timed Interview Simulator & Analytics",
-        desc: "Prepare for high-stakes technical interviews with 50+ timed challenges. Track your performance with category-by-category accuracy radar and instant review explanations.",
-        img: "assets/images/screenshots/Screenshot_2026-04-12-21-36-34-529_com.the356company.arexplorer.jpg",
+        title: "Timed Technical Assessment & Accuracy Radar",
+        desc: "Pressure-test your systems knowledge against 50+ timed challenges modeled after engineering interviews at top spatial computing labs, with mathematical rationales.",
+        img: "assets/images/screenshots/Screenshot_2026-11-09-10-56-46-160_com.the356company.arexplorer.jpg",
         checklist: [
-          "Simulated interview timer with attempt penalty mechanics",
-          "Detailed category analytics (Tracking, Math, Optics, SDKs)",
-          "Immediate answer rationales and mathematical proofs"
+          "Timed 5-minute evaluation windows with latency penalty tracking",
+          "Domain-by-domain accuracy radar (SLAM, Math, Optics, SDK Architecture)",
+          "Instant post-answer rationales with Quaternion SLERP proofs"
         ]
       },
       cert: {
-        title: "Tiered Certifications & Career Roadmap",
-        desc: "Unlock Bronze, Silver, Gold, and Platinum credentials as you demonstrate production readiness. Export high-resolution shareable certificates directly to PDF and image formats.",
-        img: "assets/images/screenshots/Screenshot_2026-04-12-21-36-25-375_com.the356company.arexplorer.jpg",
+        title: "Tiered Engineering Credentials & Career Matrix",
+        desc: "Earn Bronze, Silver, Gold, and Platinum credentials as you clear rigorous quiz thresholds and hands-on coding challenges. Export vector PDFs directly for LinkedIn portfolios.",
+        img: "assets/images/screenshots/Screenshot_2026-11-09-10-57-24-091_com.the356company.arexplorer.jpg",
         checklist: [
-          "Verified Platinum Tier certificate with unique verification badge",
-          "Step-by-step visual career roadmap from beginner to XR Lead",
-          "1-click export to PDF and high-res image for LinkedIn portfolios"
+          "Platinum-tier credential validating comprehensive curriculum completion",
+          "Structured milestone roadmap bridging entry-level to Lead Spatial Architect",
+          "One-click high-resolution PDF export with cryptographic verification hash"
         ]
       }
     };
