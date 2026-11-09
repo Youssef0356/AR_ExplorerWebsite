@@ -43,4 +43,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://youssef0356.github.io/AR_ExplorerWebsite/sitemap.xml
+Sitemap: https://arexplorer.the356company.com/sitemap.xml
